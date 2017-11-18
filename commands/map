@@ -1,0 +1,90 @@
+#!/usr/bin/python
+
+import sys
+import os.path
+import argparse
+
+from termcolor import cprint
+from functools import partial
+from command import TypedValue, panic, T_STRING, T_PATH, T_INT, typed
+
+
+@typed(T_STRING, T_STRING)
+def strip(inp):
+    return inp.strip()
+
+
+@typed(T_STRING, T_STRING)
+def append(suffix, inp):
+    return inp + suffix
+
+
+@typed(T_STRING, T_STRING)
+def take(num, inp):
+    return inp[0:int(num)]
+
+
+@typed(T_PATH, T_PATH)
+def basename(path):
+    return os.path.basename(path)
+
+
+@typed(T_PATH, T_PATH)
+def abspath(path):
+    return os.path.abspath(path)
+
+
+@typed(T_PATH, T_PATH)
+def dirname(path):
+    return os.path.dirname(path)
+
+
+@typed(T_INT, T_INT)
+def add(b, a):
+    try:
+        return a + int(b)
+    except:
+        panic("Argument to 'add' must be an integer")
+
+
+commands = {
+    "strip": strip,
+    "trim": strip,
+    "append": append,
+    "take": take,
+    "basename": basename,
+    "abspath": abspath,
+    "dirname": dirname,
+    "add": add,
+}
+
+parser = argparse.ArgumentParser(description='map')
+parser.add_argument('command', help='todo')
+parser.add_argument('args', help='todo', nargs='*')
+
+args = parser.parse_args()
+
+try:
+    command = commands[args.command]
+except KeyError:
+    panic("Command not found: '{}'".format(args.command))
+
+# Partially apply the command
+
+if len(args.args) > 0:
+    command = partial(command, *args.args)
+
+for line in sys.stdin:
+    if line.endswith("\r\n"):
+        line = line[:-2]
+    if line.endswith("\n"):
+        line = line[:-1]
+
+    line = line.strip()
+    line_typed = TypedValue(line, T_STRING)
+
+    out = command(line_typed)
+    if out.fpstype == T_PATH:
+        cprint(out.value, 'cyan')
+    else:
+        print(out.value)
