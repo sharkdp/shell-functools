@@ -37,7 +37,7 @@ def try_convert_int(inp):
 def add_dynamic_type(inp):
     value_int = try_convert_int(inp)
 
-    if value_int:
+    if value_int is not None:
         return TypedValue(value_int, T_INT)
 
     elif inp in ["True", "true", "False", "false"]:
