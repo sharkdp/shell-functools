@@ -5,20 +5,21 @@ from ft.functions import function_list
 from ft.error import panic
 
 
-def get_function(name, args):
+def get_function(name, args, enable_currying=True):
     try:
         function = function_list[name]
     except KeyError:
         panic("Command not found: '{}'".format(name))
 
-    # Partially apply the command
-    if len(args) > 0:
-        function = partial(function, *args)
+    if enable_currying:
+        # Partially apply the command
+        if len(args) > 0:
+            function = partial(function, *args)
 
     return function
 
 
-def new_command(name):
+def new_command(name, enable_currying=True):
     parser = argparse.ArgumentParser(description=name)
     parser.add_argument('function', help='the function to run for each input')
     parser.add_argument('args', help='optional arguments', nargs='*')
@@ -26,6 +27,6 @@ def new_command(name):
 
     args = parser.parse_args()
 
-    command = get_function(args.function, args.args)
+    command = get_function(args.function, args.args, enable_currying)
 
     return command, args
