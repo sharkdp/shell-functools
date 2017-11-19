@@ -15,12 +15,12 @@ def exists(path):
 
 
 @typed(T_PATH, T_BOOL)
-def isdir(path):
+def is_dir(path):
     return os.path.isdir(path)
 
 
 @typed(T_PATH, T_BOOL)
-def isfile(path):
+def is_file(path):
     return os.path.isfile(path)
 
 
@@ -31,8 +31,8 @@ def contains(substr, inp):
 
 commands = {
     "exists": exists,
-    "isdir": isdir,
-    "isfile": isfile,
+    "is_dir": is_dir,
+    "is_file": is_file,
     "contains": contains,
 }
 

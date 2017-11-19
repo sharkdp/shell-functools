@@ -20,6 +20,11 @@ def append(suffix, inp):
 
 
 @typed(T_STRING, T_STRING)
+def prepend(prefix, inp):
+    return prefix + inp
+
+
+@typed(T_STRING, T_STRING)
 def take(num, inp):
     return inp[0:int(num)]
 
@@ -39,6 +44,19 @@ def dirname(path):
     return os.path.dirname(path)
 
 
+@typed(T_PATH, T_STRING)
+def replace_ext(new_ext, path):
+    (base, ext) = os.path.splitext(path)
+    if ext != "":
+        return base + "." + new_ext
+    return path
+
+
+@typed(T_PATH, T_STRING)
+def strip_ext(path):
+    return os.path.splitext(path)[0]
+
+
 @typed(T_INT, T_INT)
 def add(b, a):
     try:
@@ -51,10 +69,13 @@ commands = {
     "strip": strip,
     "trim": strip,
     "append": append,
+    "prepend": prepend,
     "take": take,
     "basename": basename,
     "abspath": abspath,
     "dirname": dirname,
+    "strip_ext": strip_ext,
+    "replace_ext": replace_ext,
     "add": add,
 }
 

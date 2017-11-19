@@ -21,7 +21,7 @@ Assume we have the following directory contents:
 Basic usage of `map` and `filter`:
 ``` bash
 
-> find | filter isfile | map basename
+> find | filter is_file | map basename
 song.mp3
 doc.txt
 image.jpg
