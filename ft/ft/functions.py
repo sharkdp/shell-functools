@@ -132,6 +132,15 @@ def add(b, a):
         panic("Argument to 'add' must be an integer")
 
 
+@register("mul")
+@typed(T_INT, T_INT)
+def mul(b, a):
+    try:
+        return a * int(b)
+    except:
+        panic("Argument to 'mul' must be an integer")
+
+
 @register("duplicate")
 @typed(T_STRING, T_ARRAY)
 def duplicate(inp):
