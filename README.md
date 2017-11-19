@@ -2,6 +2,10 @@
 
 A collection of functional programming tools for the shell.
 
+## Demo
+
+[![asciicast](https://asciinema.org/a/6zsp3hEPpM7tmWHrjThl7idqh.png)](https://asciinema.org/a/6zsp3hEPpM7tmWHrjThl7idqh)
+
 ## Examples
 
 Assume we have the following directory contents:
