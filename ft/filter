@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from ft.types import T_BOOL
+from ft.types import T_BOOL, T_ARRAY
 from ft.internal import ftformat, input_values
 from ft.error import panic
 from ft.command import new_command
@@ -8,7 +8,11 @@ from ft.command import new_command
 function, args = new_command("filter")
 
 for value in input_values():
-    result = function(value)
+    val_to_test = value
+    if args.column and value.fttype == T_ARRAY:
+        val_to_test = value.value[args.column - 1]
+
+    result = function(val_to_test)
 
     if result.fttype == T_BOOL:
         if result.value:

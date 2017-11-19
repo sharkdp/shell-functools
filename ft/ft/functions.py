@@ -81,6 +81,58 @@ def drop(num, inp):
     return inp[int(num):]
 
 
+@register("capitalize")
+@typed(T_STRING, T_STRING)
+def capitalize(inp):
+    return inp.capitalize()
+
+
+@register("to_lower")
+@typed(T_STRING, T_STRING)
+def to_lower(inp):
+    return inp.lower()
+
+
+@register("to_upper")
+@typed(T_STRING, T_STRING)
+def to_upper(inp):
+    return inp.upper()
+
+
+@register("replace")
+@typed(T_STRING, T_STRING)
+def replace(old, new, inp):
+    old = dynamic_cast(T_STRING, old)
+    new = dynamic_cast(T_STRING, new)
+    return inp.replace(old.value, new.value)
+
+
+@register("split")
+@typed(T_STRING, T_ARRAY)
+def split(sep, inp):
+    sep = dynamic_cast(T_STRING, sep)
+    return map(lambda v: TypedValue(v, T_STRING),
+               inp.split(sep.value))
+
+
+@register("join")
+@typed(T_ARRAY, T_STRING)
+def join(sep, inp):
+    sep = dynamic_cast(T_STRING, sep).value
+    vals = map(lambda x: T_STRING.create_from(x).value, inp)
+    return sep.join(vals)
+
+
+@register("index", "at")
+@typed(T_ARRAY, T_STRING)
+def index(idx, inp):
+    idx = dynamic_cast(T_INT, idx).value
+    try:
+        return T_STRING.create_from(inp[idx]).value
+    except IndexError:
+        panic("array index out of range")
+
+
 @register("length")
 @typed(T_STRING, T_INT)
 def length(inp):
@@ -193,3 +245,9 @@ def contains(substr, inp):
 @typed(T_STRING, T_BOOL)
 def nonempty(inp):
     return inp.strip() != ""
+
+
+@register("equal")
+@typed(None, T_BOOL)
+def equal(b, a):
+    return b.value == a

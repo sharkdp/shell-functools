@@ -8,7 +8,7 @@ from ft.types import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT, T_BOOL, T_VOI
 def colored(inp, col):
     if sys.stdout.isatty():
         return ft.termcolor.colored(inp, col)
-    return inp
+    return str(inp)
 
 
 def ftformat(val):
@@ -25,7 +25,7 @@ def ftformat(val):
     elif val.fttype == T_VOID:
         return None
 
-    return val.value
+    return str(val.value)
 
 
 def try_convert_int(inp):

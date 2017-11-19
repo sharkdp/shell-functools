@@ -30,6 +30,12 @@ song.mp3
 image.jpg
 ```
 
+Get the login shell of user `shark`:
+``` bash
+> cat /etc/passwd | map split : | filter -c1 equal shark | map index 6
+/usr/bin/zsh
+```
+
 Basic usage of `foldl`:
 ``` bash
 > seq 100 | foldl add 0

@@ -9,6 +9,12 @@ class TypedValue:
         self.value = value
         self.fttype = fttype
 
+    def __str__(self):
+        return "TypedValue({}, {})".format(repr(self.value), self.fttype)
+
+    def __repr__(self):
+        return str(self)
+
 
 class FtType:
     def __init__(self):
@@ -16,6 +22,9 @@ class FtType:
 
     def __str__(self):
         return self.__class__.__name__[2:]
+
+    def __repr__(self):
+        return str(self)
 
     def create_from(self, inp):
         raise NotImplementedError
