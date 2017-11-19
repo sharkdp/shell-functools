@@ -1,0 +1,6 @@
+#!/usr/bin/python
+
+from ft.functions import function_list
+
+for fn in sorted(function_list.keys()):
+    print(fn)

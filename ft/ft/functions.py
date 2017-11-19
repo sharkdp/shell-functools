@@ -3,7 +3,7 @@ import subprocess
 
 from ft.types import T_STRING, T_ARRAY, T_BOOL, T_PATH, T_INT, T_VOID, TypeConversionError, \
     dynamic_cast
-from ft.internal import TypedValue
+from ft.internal import TypedValue, add_dynamic_type
 from ft.error import panic
 
 function_list = {}
@@ -111,8 +111,7 @@ def replace(old, new, inp):
 @typed(T_STRING, T_ARRAY)
 def split(sep, inp):
     sep = dynamic_cast(T_STRING, sep)
-    return map(lambda v: TypedValue(v, T_STRING),
-               inp.split(sep.value))
+    return map(add_dynamic_type, inp.split(sep.value))
 
 
 @register("join")
@@ -247,7 +246,7 @@ def nonempty(inp):
     return inp.strip() != ""
 
 
-@register("equal")
+@register("equal", "equals", "eq")
 @typed(None, T_BOOL)
 def equal(b, a):
     return b.value == a
