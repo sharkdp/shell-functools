@@ -1,11 +1,9 @@
 #!/usr/bin/python
 
-import sys
 import argparse
 
 from functools import partial
-from fttypes import TypedValue, T_STRING
-from command import panic, ftformat
+from command import panic, ftformat, input_values
 from functions import commands
 
 
@@ -26,31 +24,7 @@ except KeyError:
 if len(args.args) > 0:
     command = partial(command, *args.args)
 
-for line in sys.stdin:
-    if line.endswith("\r\n"):
-        line = line[:-2]
-    if line.endswith("\n"):
-        line = line[:-1]
-
-    line = line.strip()
-
-    column = 1
-    if args.column:
-        column = args.column
-        parts = line.split("\t")
-    else:
-        parts = [line]
-
-    try:
-        value = parts[column - 1]
-    except IndexError:
-        panic("Column index out of range")
-
-    value_typed = TypedValue(value, T_STRING)
-
-    result = command(value_typed)
-
+for value in input_values():
+    result = command(value)
     out = ftformat(result)
-
-    parts[column - 1] = out
-    print("\t".join(parts))
+    print(out)

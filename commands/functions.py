@@ -63,7 +63,7 @@ def strip_ext(path):
     return os.path.splitext(path)[0]
 
 
-@typed(T_STRING, T_STRING)
+@typed(None, None)
 def identity(inp):
     return inp
 

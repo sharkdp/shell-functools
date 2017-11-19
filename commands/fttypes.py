@@ -18,7 +18,12 @@ class FtType:
 
 class FtString(FtType):
     def create_from(self, inp):
-        return TypedValue(inp.value, T_STRING)  # TODO
+        if inp.fttype == T_STRING:
+            return inp
+        elif inp.fttype == T_ARRAY:
+            return TypedValue("\t".join(map(T_STRING.create_from, inp.value), T_ARRAY))
+        else:
+            return TypedValue([inp.value], T_ARRAY)
 
 
 class FtArray(FtType):

@@ -1,12 +1,11 @@
 #!/usr/bin/python
 
-import sys
 import argparse
 
 from functools import partial
 
-from fttypes import T_BOOL, T_STRING, TypedValue
-from command import panic, ftformat
+from fttypes import T_BOOL
+from command import panic, ftformat, input_values
 from functions import commands
 
 parser = argparse.ArgumentParser(description='filter')
@@ -25,18 +24,11 @@ except KeyError:
 if len(args.args) > 0:
     command = partial(command, *args.args)
 
-for line in sys.stdin:
-    if line.endswith("\r\n"):
-        line = line[:-2]
-    if line.endswith("\n"):
-        line = line[:-1]
+for value in input_values():
+    out = command(value)
 
-    line = line.strip()
-    line_typed = TypedValue(line, T_STRING)
-
-    out = command(line_typed)
     if out.fttype == T_BOOL:
         if out.value:
-            print(ftformat(line_typed))
+            print(ftformat(value))
     else:
         panic("The filter command needs to return a boolean")
