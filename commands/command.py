@@ -32,7 +32,12 @@ class FpsString(FpsType):
 
 class FpsArray(FpsType):
     def create_from(self, inp):
-        return TypedValue(inp.value, T_ARRAY)  # TODO
+        if inp.fpstype == T_ARRAY:
+            return inp
+        elif inp.fpstype == T_STRING:
+            return TypedValue(inp.value.split("\t"), T_ARRAY)
+        else:
+            return TypedValue([inp.value], T_ARRAY)
 
 
 class FpsPath(FpsType):

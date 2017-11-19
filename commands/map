@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
 import sys
-import os.path
 import argparse
+import subprocess
+import os.path
 
 from functools import partial
 from command import TypedValue, panic, T_STRING, T_ARRAY, T_PATH, T_INT, typed, colored
@@ -53,7 +54,7 @@ def dirname(path):
     return os.path.dirname(path)
 
 
-@typed(T_PATH, T_STRING)
+@typed(T_PATH, T_PATH)
 def replace_ext(new_ext, path):
     (base, ext) = os.path.splitext(path)
     if ext != "":
@@ -84,6 +85,12 @@ def duplicate(inp):
     return [inp, inp]
 
 
+@typed(T_ARRAY, T_STRING)
+def run(cmd, inp):
+    subprocess.call([cmd, *inp])
+    return "Running '{}' with arguments {}".format(cmd, inp)
+
+
 commands = {
     "strip": strip,
     "trim": strip,
@@ -101,6 +108,7 @@ commands = {
     "id": identity,
     "identity": identity,
     "duplicate": duplicate,
+    "run": run,
 }
 
 parser = argparse.ArgumentParser(description='map')
