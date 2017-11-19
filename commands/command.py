@@ -1,6 +1,8 @@
 import sys
 import termcolor
 
+from fttypes import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT
+
 
 def colored(inp, col):
     if sys.stdout.isatty():
@@ -8,80 +10,9 @@ def colored(inp, col):
     return inp
 
 
-class TypeConversionError(Exception):
-    pass
-
-
 def panic(msg):
-    sys.stderr.write("fps error: {}\n".format(msg))
+    sys.stderr.write("{}: {}\n".format(colored("functools error", "red"), msg))
     sys.exit(1)
-
-
-class FpsType:
-    def __init__(self):
-        pass
-
-    def create_from(self, inp):
-        raise NotImplementedError
-
-
-class FpsString(FpsType):
-    def create_from(self, inp):
-        return TypedValue(inp.value, T_STRING)  # TODO
-
-
-class FpsArray(FpsType):
-    def create_from(self, inp):
-        if inp.fpstype == T_ARRAY:
-            return inp
-        elif inp.fpstype == T_STRING:
-            return TypedValue(inp.value.split("\t"), T_ARRAY)
-        else:
-            return TypedValue([inp.value], T_ARRAY)
-
-
-class FpsPath(FpsType):
-    def create_from(self, inp):
-        return TypedValue(inp.value, T_PATH)  # TODO
-
-
-class FpsBool(FpsType):
-    def create_from(self, inp):
-        if inp.fpstype == T_BOOL:
-            return inp
-        elif inp.fpstype == T_STRING:
-            val = False
-            if inp.value == "true" or inp.value == "True":
-                val = True
-            return TypedValue(val, T_BOOL)
-        else:
-            raise TypeConversionError
-
-
-class FpsInt(FpsType):
-    def create_from(self, inp):
-        if inp.fpstype == T_INT:
-            return inp
-        elif inp.fpstype == T_STRING:
-            try:
-                return TypedValue(int(inp.value), T_INT)
-            except ValueError:
-                raise TypeConversionError
-        else:
-            raise TypeConversionError
-
-
-T_STRING = FpsString()
-T_ARRAY = FpsArray()
-T_PATH = FpsPath()
-T_BOOL = FpsBool()
-T_INT = FpsInt()
-
-
-class TypedValue:
-    def __init__(self, value, fpstype):
-        self.value = value
-        self.fpstype = fpstype
 
 
 def typed(type_in, type_out):
@@ -97,3 +28,16 @@ def typed(type_in, type_out):
 
         return fn_typecheck
     return wrap
+
+
+def ftformat(val):
+    if val.fttype == T_ARRAY:
+        return "\t".join(map(ftformat, val.value))
+    elif val.fttype == T_PATH:
+        return colored(val.value, 'cyan')
+    elif val.fttype == T_STRING:
+        return colored(val.value, 'yellow')
+    elif val.fttype == T_INT:
+        return colored(val.value, 'blue')
+
+    return val.value

@@ -2,114 +2,12 @@
 
 import sys
 import argparse
-import subprocess
-import os.path
 
 from functools import partial
-from command import TypedValue, panic, T_STRING, T_ARRAY, T_PATH, T_INT, typed, colored
+from fttypes import TypedValue, T_STRING
+from command import panic, ftformat
+from functions import commands
 
-
-@typed(T_STRING, T_STRING)
-def strip(inp):
-    return inp.strip()
-
-
-@typed(T_STRING, T_STRING)
-def append(suffix, inp):
-    return inp + suffix
-
-
-@typed(T_STRING, T_STRING)
-def prepend(prefix, inp):
-    return prefix + inp
-
-
-@typed(T_STRING, T_STRING)
-def take(num, inp):
-    return inp[0:int(num)]
-
-
-@typed(T_STRING, T_STRING)
-def drop(num, inp):
-    return inp[int(num):]
-
-
-@typed(T_STRING, T_INT)
-def length(inp):
-    return len(inp)
-
-
-@typed(T_PATH, T_PATH)
-def basename(path):
-    return os.path.basename(path)
-
-
-@typed(T_PATH, T_PATH)
-def abspath(path):
-    return os.path.abspath(path)
-
-
-@typed(T_PATH, T_PATH)
-def dirname(path):
-    return os.path.dirname(path)
-
-
-@typed(T_PATH, T_PATH)
-def replace_ext(new_ext, path):
-    (base, ext) = os.path.splitext(path)
-    if ext != "":
-        return base + "." + new_ext
-    return path
-
-
-@typed(T_PATH, T_STRING)
-def strip_ext(path):
-    return os.path.splitext(path)[0]
-
-
-@typed(T_STRING, T_STRING)
-def identity(inp):
-    return inp
-
-
-@typed(T_INT, T_INT)
-def add(b, a):
-    try:
-        return a + int(b)
-    except:
-        panic("Argument to 'add' must be an integer")
-
-
-@typed(T_STRING, T_ARRAY)
-def duplicate(inp):
-    return [inp, inp]
-
-
-@typed(T_ARRAY, T_STRING)
-def run(cmd, inp):
-    subprocess.call([cmd, *inp])
-    return "Running '{}' with arguments {}".format(cmd, inp)
-
-
-commands = {
-    "strip": strip,
-    "trim": strip,
-    "append": append,
-    "prepend": prepend,
-    "take": take,
-    "drop": drop,
-    "basename": basename,
-    "abspath": abspath,
-    "length": length,
-    "dirname": dirname,
-    "strip_ext": strip_ext,
-    "replace_ext": replace_ext,
-    "add": add,
-    "id": identity,
-    "identity": identity,
-    "duplicate": duplicate,
-    "run": run,
-}
 
 parser = argparse.ArgumentParser(description='map')
 parser.add_argument('command', help='todo')
@@ -150,16 +48,9 @@ for line in sys.stdin:
 
     value_typed = TypedValue(value, T_STRING)
 
-    out = command(value_typed)
+    result = command(value_typed)
 
-    if out.fpstype == T_ARRAY:
-        part_out = colored("\t".join(out.value), 'yellow')
-    elif out.fpstype == T_PATH:
-        part_out = colored(out.value, 'cyan')
-    elif out.fpstype == T_INT:
-        part_out = colored(out.value, 'blue')
-    else:
-        part_out = out.value
+    out = ftformat(result)
 
-    parts[column - 1] = part_out
+    parts[column - 1] = out
     print("\t".join(parts))
