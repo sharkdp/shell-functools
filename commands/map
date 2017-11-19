@@ -4,9 +4,8 @@ import sys
 import os.path
 import argparse
 
-from termcolor import cprint
 from functools import partial
-from command import TypedValue, panic, T_STRING, T_PATH, T_INT, typed
+from command import TypedValue, panic, T_STRING, T_ARRAY, T_PATH, T_INT, typed, colored
 
 
 @typed(T_STRING, T_STRING)
@@ -27,6 +26,16 @@ def prepend(prefix, inp):
 @typed(T_STRING, T_STRING)
 def take(num, inp):
     return inp[0:int(num)]
+
+
+@typed(T_STRING, T_STRING)
+def drop(num, inp):
+    return inp[int(num):]
+
+
+@typed(T_STRING, T_INT)
+def length(inp):
+    return len(inp)
 
 
 @typed(T_PATH, T_PATH)
@@ -57,6 +66,11 @@ def strip_ext(path):
     return os.path.splitext(path)[0]
 
 
+@typed(T_STRING, T_STRING)
+def identity(inp):
+    return inp
+
+
 @typed(T_INT, T_INT)
 def add(b, a):
     try:
@@ -65,23 +79,34 @@ def add(b, a):
         panic("Argument to 'add' must be an integer")
 
 
+@typed(T_STRING, T_ARRAY)
+def duplicate(inp):
+    return [inp, inp]
+
+
 commands = {
     "strip": strip,
     "trim": strip,
     "append": append,
     "prepend": prepend,
     "take": take,
+    "drop": drop,
     "basename": basename,
     "abspath": abspath,
+    "length": length,
     "dirname": dirname,
     "strip_ext": strip_ext,
     "replace_ext": replace_ext,
     "add": add,
+    "id": identity,
+    "identity": identity,
+    "duplicate": duplicate,
 }
 
 parser = argparse.ArgumentParser(description='map')
 parser.add_argument('command', help='todo')
 parser.add_argument('args', help='todo', nargs='*')
+parser.add_argument('--column', '-c', type=int, help='column')
 
 args = parser.parse_args()
 
@@ -102,10 +127,31 @@ for line in sys.stdin:
         line = line[:-1]
 
     line = line.strip()
-    line_typed = TypedValue(line, T_STRING)
 
-    out = command(line_typed)
-    if out.fpstype == T_PATH:
-        cprint(out.value, 'cyan')
+    column = 1
+    if args.column:
+        column = args.column
+        parts = line.split("\t")
     else:
-        print(out.value)
+        parts = [line]
+
+    try:
+        value = parts[column - 1]
+    except IndexError:
+        panic("Column index out of range")
+
+    value_typed = TypedValue(value, T_STRING)
+
+    out = command(value_typed)
+
+    if out.fpstype == T_ARRAY:
+        part_out = colored("\t".join(out.value), 'yellow')
+    elif out.fpstype == T_PATH:
+        part_out = colored(out.value, 'cyan')
+    elif out.fpstype == T_INT:
+        part_out = colored(out.value, 'blue')
+    else:
+        part_out = out.value
+
+    parts[column - 1] = part_out
+    print("\t".join(parts))

@@ -1,4 +1,11 @@
 import sys
+import termcolor
+
+
+def colored(inp, col):
+    if sys.stdout.isatty():
+        return termcolor.colored(inp, col)
+    return inp
 
 
 class TypeConversionError(Exception):
@@ -23,9 +30,14 @@ class FpsString(FpsType):
         return TypedValue(inp.value, T_STRING)  # TODO
 
 
+class FpsArray(FpsType):
+    def create_from(self, inp):
+        return TypedValue(inp.value, T_ARRAY)  # TODO
+
+
 class FpsPath(FpsType):
     def create_from(self, inp):
-        return TypedValue(inp.value, T_STRING)  # TODO
+        return TypedValue(inp.value, T_PATH)  # TODO
 
 
 class FpsBool(FpsType):
@@ -55,6 +67,7 @@ class FpsInt(FpsType):
 
 
 T_STRING = FpsString()
+T_ARRAY = FpsArray()
 T_PATH = FpsPath()
 T_BOOL = FpsBool()
 T_INT = FpsInt()

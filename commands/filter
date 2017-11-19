@@ -4,7 +4,6 @@ import sys
 import os.path
 import argparse
 
-# from termcolor import cprint
 from functools import partial
 from command import TypedValue, panic, T_STRING, T_BOOL, T_PATH, typed
 
@@ -24,16 +23,28 @@ def is_file(path):
     return os.path.isfile(path)
 
 
+@typed(T_PATH, T_BOOL)
+def is_link(path):
+    return os.path.islink(path)
+
+
 @typed(T_STRING, T_BOOL)
 def contains(substr, inp):
     return substr in inp
+
+
+@typed(T_STRING, T_BOOL)
+def nonempty(inp):
+    return inp.strip() != ""
 
 
 commands = {
     "exists": exists,
     "is_dir": is_dir,
     "is_file": is_file,
+    "is_link": is_link,
     "contains": contains,
+    "nonempty": nonempty,
 }
 
 parser = argparse.ArgumentParser(description='filter')
