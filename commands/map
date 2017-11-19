@@ -5,6 +5,7 @@ import argparse
 from functools import partial
 from command import panic, ftformat, input_values
 from functions import commands
+from fttypes import T_ARRAY
 
 
 parser = argparse.ArgumentParser(description='map')
@@ -25,6 +26,14 @@ if len(args.args) > 0:
     command = partial(command, *args.args)
 
 for value in input_values():
-    result = command(value)
+    if value.fttype == T_ARRAY and args.column is not None:
+        idx = args.column - 1
+        value.value[idx] = command(value.value[idx])
+        result = value
+    else:
+        result = command(value)
+
     out = ftformat(result)
-    print(out)
+
+    if out:
+        print(out)

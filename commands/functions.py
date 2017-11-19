@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from fttypes import T_STRING, T_ARRAY, T_BOOL, T_PATH, T_INT
+from fttypes import T_STRING, T_ARRAY, T_BOOL, T_PATH, T_INT, T_VOID
 from command import typed, panic, TypedValue
 
 
@@ -81,10 +81,13 @@ def duplicate(inp):
     return [TypedValue(inp, T_STRING), TypedValue(inp, T_STRING)]
 
 
-@typed(T_ARRAY, T_STRING)
+@typed(T_ARRAY, T_VOID)
 def run(cmd, inp):
-    subprocess.call([cmd, *inp])
-    return "Running '{}' with arguments {}".format(cmd, inp)
+    args = map(T_STRING.create_from, inp)
+    args = list(map(lambda v: v.value, args))
+
+    subprocess.call([cmd] + args)
+    return "Running '{}' with arguments {}".format(cmd, args)
 
 
 @typed(T_PATH, T_BOOL)

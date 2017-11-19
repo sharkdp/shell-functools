@@ -25,10 +25,12 @@ if len(args.args) > 0:
     command = partial(command, *args.args)
 
 for value in input_values():
-    out = command(value)
+    result = command(value)
 
-    if out.fttype == T_BOOL:
-        if out.value:
-            print(ftformat(value))
+    if result.fttype == T_BOOL:
+        if result.value:
+            out = ftformat(value)
+            if out:
+                print(out)
     else:
         panic("The filter command needs to return a boolean")

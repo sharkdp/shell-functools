@@ -73,8 +73,14 @@ class FtInt(FtType):
         raise TypeConversionError(inp.fttype, T_INT)
 
 
+class FtVoid(FtType):
+    def create_from(self, inp):
+        raise TypeConversionError(inp.fttype, T_INT)
+
+
 T_STRING = FtString()
 T_ARRAY = FtArray()
 T_PATH = FtPath()
 T_BOOL = FtBool()
 T_INT = FtInt()
+T_VOID = FtVoid()

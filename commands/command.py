@@ -1,7 +1,8 @@
 import sys
 import termcolor
 
-from fttypes import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT, T_BOOL, TypeConversionError
+from fttypes import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT, T_BOOL, T_VOID, \
+    TypeConversionError
 
 
 def colored(inp, col):
@@ -53,6 +54,8 @@ def ftformat(val):
         return colored(val.value, 'blue')
     elif val.fttype == T_BOOL:
         return colored(val.value, 'magenta')
+    elif val.fttype == T_VOID:
+        return None
 
     return val.value
 
@@ -77,7 +80,7 @@ def add_dynamic_type(inp):
             return TypedValue(False, T_BOOL)
 
     elif "\t" in inp:
-        return TypedValue(map(add_dynamic_type, inp.split("\t")), T_ARRAY)
+        return TypedValue(list(map(add_dynamic_type, inp.split("\t"))), T_ARRAY)
 
     else:
         return TypedValue(inp, T_STRING)
