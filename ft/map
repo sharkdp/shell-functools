@@ -1,28 +1,19 @@
 #!/usr/bin/python
 
-import argparse
-
 from ft.types import T_ARRAY
 from ft.internal import ftformat, input_values
-from ft.command import get_command
+from ft.command import new_command
 
 
-parser = argparse.ArgumentParser(description='map')
-parser.add_argument('command', help='todo')
-parser.add_argument('args', help='todo', nargs='*')
-parser.add_argument('--column', '-c', type=int, help='column')
-
-args = parser.parse_args()
-
-command = get_command(args.command, args.args)
+fn, args = new_command("map")
 
 for value in input_values():
     if value.fttype == T_ARRAY and args.column is not None:
         idx = args.column - 1
-        value.value[idx] = command(value.value[idx])
+        value.value[idx] = fn(value.value[idx])
         result = value
     else:
-        result = command(value)
+        result = fn(value)
 
     out = ftformat(result)
 

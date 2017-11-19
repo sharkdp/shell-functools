@@ -5,7 +5,7 @@ from ft.types import T_STRING, T_ARRAY, T_BOOL, T_PATH, T_INT, T_VOID, TypeConve
 from ft.internal import TypedValue
 from ft.error import panic
 
-commands = {}
+function_list = {}
 
 
 def register(*names):
@@ -13,10 +13,10 @@ def register(*names):
         panic("Called @register without arguments")
 
     def wrap(fn):
-        global commands
+        global function_list
 
         for n in names:
-            commands[n] = fn
+            function_list[n] = fn
 
     return wrap
 

@@ -1,22 +1,14 @@
 #!/usr/bin/python
 
-import argparse
-
 from ft.types import T_BOOL
 from ft.internal import ftformat, input_values
 from ft.error import panic
-from ft.command import get_command
+from ft.command import new_command
 
-parser = argparse.ArgumentParser(description='filter')
-parser.add_argument('command', help='todo')
-parser.add_argument('args', help='todo', nargs='*')
-
-args = parser.parse_args()
-
-command = get_command(args.command, args.args)
+function, args = new_command("filter")
 
 for value in input_values():
-    result = command(value)
+    result = function(value)
 
     if result.fttype == T_BOOL:
         if result.value:
@@ -24,4 +16,4 @@ for value in input_values():
             if out:
                 print(out)
     else:
-        panic("The filter command needs to return a boolean")
+        panic("The filter function needs to return a boolean")
