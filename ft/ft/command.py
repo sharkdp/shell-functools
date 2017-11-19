@@ -2,6 +2,7 @@ import argparse
 from functools import partial
 
 from ft.functions import function_list
+from ft.internal import add_dynamic_type
 from ft.error import panic
 
 
@@ -14,6 +15,7 @@ def get_function(name, args, enable_currying=True):
     if enable_currying:
         # Partially apply the command
         if len(args) > 0:
+            args = map(add_dynamic_type, args)
             function = partial(function, *args)
 
     return function

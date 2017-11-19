@@ -1,5 +1,6 @@
 import sys
 import ft.termcolor
+import re
 
 from ft.types import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT, T_BOOL, T_VOID
 
@@ -28,6 +29,10 @@ def ftformat(val):
 
 
 def try_convert_int(inp):
+    # Make sure that the input *only* consists of a number (no added spaces..)
+    if not re.match("^\d+$", inp):
+        return None
+
     try:
         return int(inp)
     except ValueError:
@@ -54,7 +59,7 @@ def add_dynamic_type(inp):
 
 
 def input_values():
-    for line in sys.stdin:
+    for line in sys.stdin.readlines():
         # Strip newline symbols
         if line.endswith("\r\n"):
             line = line[:-2]

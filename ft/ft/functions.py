@@ -1,7 +1,8 @@
 import os
 import subprocess
 
-from ft.types import T_STRING, T_ARRAY, T_BOOL, T_PATH, T_INT, T_VOID, TypeConversionError
+from ft.types import T_STRING, T_ARRAY, T_BOOL, T_PATH, T_INT, T_VOID, TypeConversionError, \
+    dynamic_cast
 from ft.internal import TypedValue
 from ft.error import panic
 
@@ -57,24 +58,26 @@ def strip(inp):
 @register("append")
 @typed(T_STRING, T_STRING)
 def append(suffix, inp):
-    return inp + suffix
+    return inp + dynamic_cast(T_STRING, suffix).value
 
 
 @register("prepend")
 @typed(T_STRING, T_STRING)
 def prepend(prefix, inp):
-    return prefix + inp
+    return dynamic_cast(T_STRING, prefix).value + inp
 
 
 @register("take")
 @typed(T_STRING, T_STRING)
 def take(num, inp):
+    num = dynamic_cast(T_INT, num).value
     return inp[0:int(num)]
 
 
 @register("drop")
 @typed(T_STRING, T_STRING)
 def drop(num, inp):
+    num = dynamic_cast(T_INT, num).value
     return inp[int(num):]
 
 
@@ -105,6 +108,7 @@ def dirname(path):
 @register("replace_ext")
 @typed(T_PATH, T_PATH)
 def replace_ext(new_ext, path):
+    new_ext = dynamic_cast(T_STRING, new_ext).value
     (base, ext) = os.path.splitext(path)
     if ext != "":
         return base + "." + new_ext
@@ -126,19 +130,15 @@ def id(inp):
 @register("add")
 @typed(T_INT, T_INT)
 def add(b, a):
-    try:
-        return a + int(b)
-    except:
-        panic("Argument to 'add' must be an integer")
+    b = dynamic_cast(T_INT, b).value
+    return a + b
 
 
 @register("mul")
 @typed(T_INT, T_INT)
 def mul(b, a):
-    try:
-        return a * int(b)
-    except:
-        panic("Argument to 'mul' must be an integer")
+    b = dynamic_cast(T_INT, b).value
+    return a * b
 
 
 @register("duplicate")
@@ -150,6 +150,7 @@ def duplicate(inp):
 @register("run")
 @typed(T_ARRAY, T_VOID)
 def run(cmd, inp):
+    cmd = dynamic_cast(T_STRING, cmd).value
     args = map(T_STRING.create_from, inp)
     args = list(map(lambda v: v.value, args))
 
@@ -184,6 +185,7 @@ def is_link(path):
 @register("contains")
 @typed(T_STRING, T_BOOL)
 def contains(substr, inp):
+    substr = dynamic_cast(T_STRING, substr).value
     return substr in inp
 
 

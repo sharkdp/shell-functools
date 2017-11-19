@@ -22,7 +22,6 @@ Assume we have the following directory contents:
 
 Basic usage of `map` and `filter`:
 ``` bash
-
 > find | filter is_file | map basename
 doc.txt
 doc_symlink.txt
@@ -31,18 +30,18 @@ song.mp3
 image.jpg
 ```
 
+Basic usage of `foldl`:
+``` bash
+> seq 100 | foldl add 0
+5050
+
+> seq 10 | foldl mul 1
+3628800
+```
+
 Working with two arguments:
 ```
 > find -name '*.jpg' | map duplicate | map -c2 basename | map -c2 prepend "thumb_" | map run convert
 Running 'convert' with arguments ['./deeply/portrait.jpg', 'thumb_portrait.jpg']
 Running 'convert' with arguments ['./image.jpg', 'thumb_image.jpg']
-```
-
-
-Operations on integers:
-``` bash
-> seq 1 3 | map add 10
-11
-12
-13
 ```

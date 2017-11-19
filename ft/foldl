@@ -1,0 +1,27 @@
+#!/usr/bin/python
+
+from ft.types import T_ARRAY
+from ft.internal import ftformat, input_values, add_dynamic_type
+from ft.command import new_command
+from ft.error import panic
+
+
+fn, args = new_command("foldl", enable_currying=False)
+
+# Initial value
+if len(args.args) != 1:
+    panic("Initial value to foldl is required")
+
+acc = add_dynamic_type(args.args[0])
+
+for value in input_values():
+    if value.fttype == T_ARRAY and args.column is not None:
+        idx = args.column - 1
+        acc = fn(value.value[idx], acc)
+    else:
+        acc = fn(value, acc)
+
+out = ftformat(acc)
+
+if out:
+    print(out)

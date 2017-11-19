@@ -27,6 +27,8 @@ class FtString(FtType):
             return inp
         elif inp.fttype == T_PATH:
             return TypedValue(inp.value, T_STRING)
+        elif inp.fttype == T_BOOL or inp.fttype == T_INT:
+            return TypedValue(str(inp.value), T_STRING)
 
         raise TypeConversionError(inp.fttype, T_STRING)
 
@@ -78,6 +80,10 @@ class FtInt(FtType):
 class FtVoid(FtType):
     def create_from(self, inp):
         raise TypeConversionError(inp.fttype, T_INT)
+
+
+def dynamic_cast(target_type, value):
+    return target_type.create_from(value)
 
 
 T_STRING = FtString()
