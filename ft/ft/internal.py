@@ -1,46 +1,13 @@
 import sys
 import ft.termcolor
 
-from ft.types import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT, T_BOOL, T_VOID, \
-    TypeConversionError
-
-
-def typed(type_in, type_out):
-    def wrap(fn):
-        def fn_typecheck(*args):
-            inp = args[-1]
-
-            if type_in is not None:
-                try:
-                    inp = type_in.create_from(inp)
-                except TypeConversionError as e:
-                    panic("incompatible input type: expected '{}', got '{}'".format(e.type_to,
-                                                                                    e.type_from))
-
-            if len(args) > 1:
-                result = fn(*args[0:-1], inp.value)
-            else:
-                result = fn(inp.value)
-
-            if type_out is None:
-                return TypedValue(result, inp.fttype)
-
-            return TypedValue(result, type_out)
-
-        return fn_typecheck
-
-    return wrap
+from ft.types import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT, T_BOOL, T_VOID
 
 
 def colored(inp, col):
     if sys.stdout.isatty():
         return ft.termcolor.colored(inp, col)
     return inp
-
-
-def panic(msg):
-    sys.stderr.write("{}: {}\n".format(colored("functools error", "red"), msg))
-    sys.exit(1)
 
 
 def ftformat(val):

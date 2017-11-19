@@ -25,6 +25,8 @@ class FtString(FtType):
     def create_from(self, inp):
         if inp.fttype == T_STRING:
             return inp
+        elif inp.fttype == T_PATH:
+            return TypedValue(inp.value, T_STRING)
 
         raise TypeConversionError(inp.fttype, T_STRING)
 
@@ -68,7 +70,7 @@ class FtInt(FtType):
             try:
                 return TypedValue(int(inp.value), T_INT)
             except ValueError:
-                raise TypeConversionError
+                pass
 
         raise TypeConversionError(inp.fttype, T_INT)
 
