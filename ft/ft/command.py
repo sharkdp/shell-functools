@@ -1,13 +1,13 @@
 import sys
-import termcolor
+import ft.termcolor
 
-from fttypes import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT, T_BOOL, T_VOID, \
+from ft.types import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT, T_BOOL, T_VOID, \
     TypeConversionError
 
 
 def colored(inp, col):
     if sys.stdout.isatty():
-        return termcolor.colored(inp, col)
+        return ft.termcolor.colored(inp, col)
     return inp
 
 

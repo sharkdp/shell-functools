@@ -3,9 +3,10 @@
 import argparse
 
 from functools import partial
-from command import panic, ftformat, input_values
-from functions import commands
-from fttypes import T_ARRAY
+
+from ft.command import panic, ftformat, input_values
+from ft.functions import commands
+from ft.types import T_ARRAY
 
 
 parser = argparse.ArgumentParser(description='map')

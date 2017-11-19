@@ -1,8 +1,8 @@
 import os
 import subprocess
 
-from fttypes import T_STRING, T_ARRAY, T_BOOL, T_PATH, T_INT, T_VOID
-from command import typed, panic, TypedValue
+from ft.types import T_STRING, T_ARRAY, T_BOOL, T_PATH, T_INT, T_VOID
+from ft.command import typed, panic, TypedValue
 
 
 @typed(T_STRING, T_STRING)
