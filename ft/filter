@@ -2,12 +2,10 @@
 
 import argparse
 
-from functools import partial
-
 from ft.types import T_BOOL
 from ft.internal import ftformat, input_values
 from ft.error import panic
-from ft.functions import commands
+from ft.command import get_command
 
 parser = argparse.ArgumentParser(description='filter')
 parser.add_argument('command', help='todo')
@@ -15,15 +13,7 @@ parser.add_argument('args', help='todo', nargs='*')
 
 args = parser.parse_args()
 
-try:
-    command = commands[args.command]
-except KeyError:
-    panic("Command not found: '{}'".format(args.command))
-
-# Partially apply the command
-
-if len(args.args) > 0:
-    command = partial(command, *args.args)
+command = get_command(args.command, args.args)
 
 for value in input_values():
     result = command(value)

@@ -2,12 +2,9 @@
 
 import argparse
 
-from functools import partial
-
 from ft.types import T_ARRAY
 from ft.internal import ftformat, input_values
-from ft.functions import commands
-from ft.error import panic
+from ft.command import get_command
 
 
 parser = argparse.ArgumentParser(description='map')
@@ -17,15 +14,7 @@ parser.add_argument('--column', '-c', type=int, help='column')
 
 args = parser.parse_args()
 
-try:
-    command = commands[args.command]
-except KeyError:
-    panic("Command not found: '{}'".format(args.command))
-
-# Partially apply the command
-
-if len(args.args) > 0:
-    command = partial(command, *args.args)
+command = get_command(args.command, args.args)
 
 for value in input_values():
     if value.fttype == T_ARRAY and args.column is not None:
