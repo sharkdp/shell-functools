@@ -3,7 +3,6 @@ import command
 
 
 def test_add_dynamic_type():
-
     assert command.add_dynamic_type("True").fttype == T_BOOL
     assert command.add_dynamic_type("-1223").fttype == T_INT
     assert command.add_dynamic_type("foo\tbar").fttype == T_ARRAY

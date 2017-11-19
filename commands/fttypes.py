@@ -1,5 +1,7 @@
 class TypeConversionError(Exception):
-    pass
+    def __init__(self, type_from, type_to):
+        self.type_from = type_from
+        self.type_to = type_to
 
 
 class TypedValue:
@@ -12,6 +14,9 @@ class FtType:
     def __init__(self):
         pass
 
+    def __str__(self):
+        return self.__class__.__name__[2:]
+
     def create_from(self, inp):
         raise NotImplementedError
 
@@ -20,10 +25,8 @@ class FtString(FtType):
     def create_from(self, inp):
         if inp.fttype == T_STRING:
             return inp
-        elif inp.fttype == T_ARRAY:
-            return TypedValue("\t".join(map(T_STRING.create_from, inp.value), T_ARRAY))
-        else:
-            return TypedValue([inp.value], T_ARRAY)
+
+        raise TypeConversionError(inp.fttype, T_STRING)
 
 
 class FtArray(FtType):
@@ -32,13 +35,16 @@ class FtArray(FtType):
             return inp
         elif inp.fttype == T_STRING:
             return TypedValue(inp.value.split("\t"), T_ARRAY)
-        else:
-            return TypedValue([inp.value], T_ARRAY)
+
+        raise TypeConversionError(inp.fttype, T_ARRAY)
 
 
 class FtPath(FtType):
     def create_from(self, inp):
-        return TypedValue(inp.value, T_PATH)  # TODO
+        if inp.fttype == T_STRING or inp.fttype == T_PATH:
+            return TypedValue(inp.value, T_PATH)
+
+        raise TypeConversionError(inp.fttype, T_PATH)
 
 
 class FtBool(FtType):
@@ -50,8 +56,8 @@ class FtBool(FtType):
             if inp.value == "true" or inp.value == "True":
                 val = True
             return TypedValue(val, T_BOOL)
-        else:
-            raise TypeConversionError
+
+        raise TypeConversionError(inp.fttype, T_BOOL)
 
 
 class FtInt(FtType):
@@ -63,8 +69,8 @@ class FtInt(FtType):
                 return TypedValue(int(inp.value), T_INT)
             except ValueError:
                 raise TypeConversionError
-        else:
-            raise TypeConversionError
+
+        raise TypeConversionError(inp.fttype, T_INT)
 
 
 T_STRING = FtString()

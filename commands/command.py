@@ -1,7 +1,7 @@
 import sys
 import termcolor
 
-from fttypes import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT, T_BOOL
+from fttypes import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT, T_BOOL, TypeConversionError
 
 
 def colored(inp, col):
@@ -21,7 +21,11 @@ def typed(type_in, type_out):
             inp = args[-1]
 
             if type_in is not None:
-                inp = type_in.create_from(inp)
+                try:
+                    inp = type_in.create_from(inp)
+                except TypeConversionError as e:
+                    panic("incompatible input type: expected '{}', got '{}'".format(e.type_to,
+                                                                                    e.type_from))
 
             if len(args) > 1:
                 result = fn(*args[0:-1], inp.value)
