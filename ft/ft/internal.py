@@ -5,17 +5,6 @@ from ft.types import TypedValue, T_ARRAY, T_PATH, T_STRING, T_INT, T_BOOL, T_VOI
     TypeConversionError
 
 
-def colored(inp, col):
-    if sys.stdout.isatty():
-        return ft.termcolor.colored(inp, col)
-    return inp
-
-
-def panic(msg):
-    sys.stderr.write("{}: {}\n".format(colored("functools error", "red"), msg))
-    sys.exit(1)
-
-
 def typed(type_in, type_out):
     def wrap(fn):
         def fn_typecheck(*args):
@@ -41,6 +30,17 @@ def typed(type_in, type_out):
         return fn_typecheck
 
     return wrap
+
+
+def colored(inp, col):
+    if sys.stdout.isatty():
+        return ft.termcolor.colored(inp, col)
+    return inp
+
+
+def panic(msg):
+    sys.stderr.write("{}: {}\n".format(colored("functools error", "red"), msg))
+    sys.exit(1)
 
 
 def ftformat(val):

@@ -4,7 +4,7 @@ import argparse
 
 from functools import partial
 
-from ft.command import panic, ftformat, input_values
+from ft.internal import panic, ftformat, input_values
 from ft.functions import commands
 from ft.types import T_ARRAY
 

@@ -5,7 +5,7 @@ import argparse
 from functools import partial
 
 from ft.types import T_BOOL
-from ft.command import panic, ftformat, input_values
+from ft.internal import panic, ftformat, input_values
 from ft.functions import commands
 
 parser = argparse.ArgumentParser(description='filter')
