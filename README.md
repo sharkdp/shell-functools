@@ -7,6 +7,18 @@ Following the UNIX philosophy, these commands are designed to be composed via pi
 [large collection](#available-function-arguments) of functions such as `basename`, `replace`, `contains` or `is_dir` are provided as
 arguments to these commands.
 
+## Contents
+
+* [Demo](#demo)
+* [Quick start](#quick-start)
+* [Documentation and examples](#documentation-and-examples)
+    * [Usage of `map`](#usage-of-map)
+    * [Usage of `filter`](#usage-of-filter)
+    * [Usage of `foldl`](#usage-of-foldl)
+    * [Chaining commands](#chaining-commands)
+    * [Working with columns](#working-with-columns)
+    * [Available function arguments](#available-function-arguments)
+
 ## Demo
 
 <a href="https://asciinema.org/a/6zsp3hEPpM7tmWHrjThl7idqh" target="_blank"><img src="https://asciinema.org/a/6zsp3hEPpM7tmWHrjThl7idqh.png" width="600" /></a>
@@ -36,6 +48,26 @@ image.jpg
 /tmp/demo/image.jpg
 ```
 
+### Usage of `filter`
+
+The `filter` command takes a [function argument](#available-function-arguments) with a `Bool`ean return type. It applies that function to each input line and shows only those that returned `true`:
+``` bash
+> find
+.
+./folder
+./folder/me.jpg
+./folder/subdirectory
+./folder/subdirectory/song.mp3
+./document.txt
+./image.jpg
+                                                                                   
+> find | filter is_file
+./folder/me.jpg
+./folder/subdirectory/song.mp3
+./document.txt
+./image.jpg
+```
+
 ### Usage of `foldl`
 
 The `foldl` command takes a [function argument](#available-function-arguments) and an initial value. The given function must be a binary function with two arguments, like `add` or `append`. The `foldl` command then applies this function iteratively by keeping an internal accumulator:
@@ -56,6 +88,26 @@ Append the numbers from 1 to 10 in a string:
 ``` bash
 > seq 1 10 | map append " " | foldl append ""
 1 2 3 4 5 6 7 8 9 10 
+```
+
+### Chaining commands
+
+All of these commands can be composed by using standard UNIX pipes:
+```
+> find
+.
+./folder
+./folder/me.jpg
+./folder/subdirectory
+./folder/subdirectory/song.mp3
+./document.txt
+./image.jpg
+
+> find | filter is_file | map basename | map append ".bak"
+me.jpg.bak
+song.mp3.bak
+document.txt.bak
+image.jpg.bak
 ```
 
 ### Working with columns
@@ -91,7 +143,7 @@ Get the login shell of user `shark`:
 ```
 
 
-## Available function arguments
+### Available function arguments
 
 You can call `ft-functions`, to get an overview of all available arguments to `map`, `filter`, etc.:
 
