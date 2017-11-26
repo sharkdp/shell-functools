@@ -257,7 +257,7 @@ def contains(substr, inp):
     return substr in inp
 
 
-@register("nonempty")
+@register("non_empty")
 @typed(T_STRING, T_BOOL)
 def nonempty(inp):
     return inp.strip() != ""
