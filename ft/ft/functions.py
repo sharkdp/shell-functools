@@ -172,6 +172,15 @@ def strip_ext(path):
     return os.path.splitext(path)[0]
 
 
+@register("has_ext")
+@typed(T_PATH, T_BOOL)
+def has_ext(ext, path):
+    ext = dynamic_cast(T_STRING, ext).value
+    (_, file_ext) = os.path.splitext(path)
+    file_ext = file_ext[1:]  # strip leading dot
+    return file_ext == ext
+
+
 @register("id", "identity")
 @typed(None, None)
 def id(inp):
