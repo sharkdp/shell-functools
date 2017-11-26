@@ -11,6 +11,15 @@ arguments to these commands.
 
 <a href="https://asciinema.org/a/6zsp3hEPpM7tmWHrjThl7idqh" target="_blank"><img src="https://asciinema.org/a/6zsp3hEPpM7tmWHrjThl7idqh.png" width="600" /></a>
 
+## Quick start
+
+If you want to try it out on your own, run:
+``` bash
+git clone https://github.com/sharkdp/shell-functools /tmp/shell-functools
+export PATH="$PATH:/tmp/shell-functools/ft"
+```
+
+
 ## Examples
 
 Assume we have the following directory contents:
