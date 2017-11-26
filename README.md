@@ -60,7 +60,7 @@ The `filter` command takes a [function argument](#available-function-arguments) 
 ./folder/subdirectory/song.mp3
 ./document.txt
 ./image.jpg
-                                                                                   
+
 > find | filter is_file
 ./folder/me.jpg
 ./folder/subdirectory/song.mp3
@@ -87,13 +87,13 @@ Multiply the numbers from 1 to 10:
 Append the numbers from 1 to 10 in a string:
 ``` bash
 > seq 1 10 | map append " " | foldl append ""
-1 2 3 4 5 6 7 8 9 10 
+1 2 3 4 5 6 7 8 9 10
 ```
 
 ### Chaining commands
 
 All of these commands can be composed by using standard UNIX pipes:
-```
+``` bash
 > find
 .
 ./folder
@@ -112,25 +112,40 @@ image.jpg.bak
 
 ### Working with columns
 
-The `--column` / `-c` option can be used to apply a given function only to a certain *column* in the input line (columns are separated by tabs). Column arrays can be created by using `duplicate` or `split`:
+The `--column` / `-c` option can be used to apply a given function to a certain *column* in the input line (columns are separated by tabs). Column arrays can be created by using `duplicate` or `split`:
 
 ``` bash
-> find -name '*.jpg' 
+> ls | filter is_file | map split_ext
+document	txt
+image	jpg
+
+> ls | filter is_file | map split_ext | map -c1 to_upper
+DOCUMENT	txt
+IMAGE	jpg
+
+> ls | filter is_file | map split_ext | map -c1 to_upper | map join .
+DOCUMENT.txt
+IMAGE.jpg
+```
+
+Here is a more complicated example:
+``` bash
+> find -name '*.jpg'
 ./folder/me.jpg
 ./image.jpg
-                                                                                   
+
 > find -name '*.jpg' | map duplicate
 ./folder/me.jpg   ./folder/me.jpg
 ./image.jpg       ./image.jpg
-                                                                                   
+
 > find -name '*.jpg' | map duplicate | map -c2 basename
 ./folder/me.jpg   me.jpg
 ./image.jpg       image.jpg
-                                                                                   
+
 > find -name '*.jpg' | map duplicate | map -c2 basename | map -c2 prepend "thumb_"
 ./folder/me.jpg	  thumb_me.jpg
 ./image.jpg       thumb_image.jpg
-                                                                                   
+
 > find -name '*.jpg' | map duplicate | map -c2 basename | map -c2 prepend "thumb_" | map run convert
 Running 'convert' with arguments ['./folder/me.jpg', 'thumb_me.jpg']
 Running 'convert' with arguments ['./image.jpg', 'thumb_image.jpg']
