@@ -20,4 +20,4 @@ class Filter(Command):
             if result.value:
                 self.print_formatted(value)
         else:
-            panic("The filter function needs to return a boolean")
+            panic("The filter function needs to return a 'Bool', got '{}'".format(result.fttype))

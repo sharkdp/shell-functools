@@ -33,6 +33,8 @@ for name, fn in sorted(function_list.items()):
 
     if type_out is None:
         type_out = with_color("*")
+    elif type_out == "returned":
+        type_out = with_color("*")
     elif type_out == T_VOID:
         type_out = with_color("!")
     else:

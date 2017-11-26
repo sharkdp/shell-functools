@@ -42,6 +42,8 @@ def typed(type_in, type_out):
 
             if type_out is None:
                 return TypedValue(result, inp.fttype)
+            elif type_out == "returned":
+                return result
 
             return TypedValue(result, type_out)
 
@@ -212,6 +214,12 @@ def split_ext(inp):
 @typed(None, None)
 def id(inp):
     return inp
+
+
+@register("const")
+@typed(None, "returned")
+def const(value, inp):
+    return value
 
 
 @register("add")

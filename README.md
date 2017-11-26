@@ -169,6 +169,7 @@ append suffix       :: String → String
 at idx              :: Array  → String
 basename            :: Path   → Path
 capitalize          :: String → String
+const value         :: *      → *
 contains substring  :: String → Bool
 dirname             :: Path   → Path
 drop count          :: String → String

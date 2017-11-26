@@ -11,6 +11,9 @@ from ft.error import panic
 class Command:
     def __init__(self, name):
         self.name = name
+        self.column = None
+        self.arguments = None
+        self.function = None
 
     def get_argument_parser(self):
         parser = argparse.ArgumentParser(description=self.name)
