@@ -2,7 +2,7 @@
 
 *A collection of functional programming tools for the shell.*
 
-This project provides higher order functions like `map` and `filter` as simple command-line tools.
+This project provides higher order functions like `map`, `filter` and `foldl` as simple command-line tools.
 Following the UNIX philosophy, these commands are designed to be composed via pipes. A
 [large collection](#available-function-arguments) of functions such as `basename`, `replace`, `contains` or `is_dir` are provided as
 arguments to these commands.
