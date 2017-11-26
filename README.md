@@ -112,7 +112,7 @@ image.jpg.bak
 
 ### Working with columns
 
-The `--column` / `-c` option can be used to apply a given function to a certain *column* in the input line (columns are separated by tabs). Column arrays can be created by using `duplicate` or `split`:
+The `--column` / `-c` option can be used to apply a given function to a certain *column* in the input line (columns are separated by tabs). Column arrays can be created by using functions such as `duplicate`, `split sep` or `split_ext`:
 
 ``` bash
 > ls | filter is_file | map split_ext
