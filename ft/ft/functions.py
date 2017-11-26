@@ -284,3 +284,31 @@ def nonempty(inp):
 @typed(None, T_BOOL)
 def equal(other, inp):
     return other.value == inp
+
+
+@register("greater_than", "greater")
+@typed(T_INT, T_BOOL)
+def greater_than(i, inp):
+    i = dynamic_cast(T_INT, i).value
+    return inp > i
+
+
+@register("greater_equals", "ge")
+@typed(T_INT, T_BOOL)
+def greater_equals(i, inp):
+    i = dynamic_cast(T_INT, i).value
+    return inp >= i
+
+
+@register("less_than", "less")
+@typed(T_INT, T_BOOL)
+def less_than(i, inp):
+    i = dynamic_cast(T_INT, i).value
+    return inp < i
+
+
+@register("less_equals", "le")
+@typed(T_INT, T_BOOL)
+def less_equals(i, inp):
+    i = dynamic_cast(T_INT, i).value
+    return inp <= i
