@@ -1,6 +1,8 @@
 # shell-functools
 
-A collection of functional programming tools for the shell.
+*A collection of functional programming tools for the shell.*
+
+This project provides higher order functions like `map` and `filter` as simple command-line tools. Following the UNIX philosophy, these commands are designed to be chained with pipes. A large collection of functions such as `basename`, `replace`, `capitalize`, `is_dir` and many more are provided as arguments to these commands.
 
 ## Demo
 
