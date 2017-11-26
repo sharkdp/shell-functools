@@ -1,23 +1,6 @@
 #!/usr/bin/env python3
 
-from ft.types import T_BOOL, T_ARRAY
-from ft.internal import ftformat, input_values
-from ft.error import panic
-from ft.command import new_command
+from ft.commands.filter import Filter
 
-function, args = new_command("filter")
 
-for value in input_values():
-    val_to_test = value
-    if args.column and value.fttype == T_ARRAY:
-        val_to_test = value.value[args.column - 1]
-
-    result = function(val_to_test)
-
-    if result.fttype == T_BOOL:
-        if result.value:
-            out = ftformat(value)
-            if out:
-                print(out)
-    else:
-        panic("The filter function needs to return a boolean")
+Filter().run()

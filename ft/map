@@ -1,21 +1,6 @@
 #!/usr/bin/env python3
 
-from ft.types import T_ARRAY
-from ft.internal import ftformat, input_values
-from ft.command import new_command
+from ft.commands.map import Map
 
 
-fn, args = new_command("map")
-
-for value in input_values():
-    if value.fttype == T_ARRAY and args.column is not None:
-        idx = args.column - 1
-        value.value[idx] = fn(value.value[idx])
-        result = value
-    else:
-        result = fn(value)
-
-    out = ftformat(result)
-
-    if out:
-        print(out)
+Map().run()
