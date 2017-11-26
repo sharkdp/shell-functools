@@ -1,3 +1,4 @@
+import inspect
 import os
 import subprocess
 
@@ -44,6 +45,10 @@ def typed(type_in, type_out):
 
             return TypedValue(result, type_out)
 
+        fn_typecheck.type_in = type_in
+        fn_typecheck.type_out = type_out
+        fn_typecheck.inner_argspec = inspect.getargspec(fn)
+
         return fn_typecheck
 
     return wrap
@@ -69,16 +74,16 @@ def prepend(prefix, inp):
 
 @register("take")
 @typed(T_STRING, T_STRING)
-def take(num, inp):
-    num = dynamic_cast(T_INT, num).value
-    return inp[0:int(num)]
+def take(count, inp):
+    count = dynamic_cast(T_INT, count).value
+    return inp[0:int(count)]
 
 
 @register("drop")
 @typed(T_STRING, T_STRING)
-def drop(num, inp):
-    num = dynamic_cast(T_INT, num).value
-    return inp[int(num):]
+def drop(count, inp):
+    count = dynamic_cast(T_INT, count).value
+    return inp[int(count):]
 
 
 @register("capitalize")
@@ -101,10 +106,10 @@ def to_upper(inp):
 
 @register("substr")
 @typed(T_STRING, T_STRING)
-def substr(i1, i2, inp):
-    i1 = dynamic_cast(T_INT, i1).value
-    i2 = dynamic_cast(T_INT, i2).value
-    return inp[i1:i2]
+def substr(start, end, inp):
+    start = dynamic_cast(T_INT, start).value
+    end = dynamic_cast(T_INT, end).value
+    return inp[start:end]
 
 
 @register("replace")
@@ -124,17 +129,17 @@ def starts_with(pattern, inp):
 
 @register("split")
 @typed(T_STRING, T_ARRAY)
-def split(sep, inp):
-    sep = dynamic_cast(T_STRING, sep)
-    return map(add_dynamic_type, inp.split(sep.value))
+def split(separator, inp):
+    separator = dynamic_cast(T_STRING, separator)
+    return map(add_dynamic_type, inp.split(separator.value))
 
 
 @register("join")
 @typed(T_ARRAY, T_STRING)
-def join(sep, inp):
-    sep = dynamic_cast(T_STRING, sep).value
+def join(separator, inp):
+    separator = dynamic_cast(T_STRING, separator).value
     vals = map(lambda x: T_STRING.create_from(x).value, inp)
-    return sep.join(vals)
+    return separator.join(vals)
 
 
 @register("index", "at")
@@ -204,16 +209,16 @@ def id(inp):
 
 @register("add")
 @typed(T_INT, T_INT)
-def add(b, inp):
-    b = dynamic_cast(T_INT, b).value
-    return inp + b
+def add(num, inp):
+    num = dynamic_cast(T_INT, num).value
+    return inp + num
 
 
 @register("mul")
 @typed(T_INT, T_INT)
-def mul(b, inp):
-    b = dynamic_cast(T_INT, b).value
-    return inp * b
+def mul(num, inp):
+    num = dynamic_cast(T_INT, num).value
+    return inp * num
 
 
 @register("duplicate")
@@ -224,13 +229,13 @@ def duplicate(inp):
 
 @register("run")
 @typed(T_ARRAY, T_VOID)
-def run(cmd, inp):
-    cmd = dynamic_cast(T_STRING, cmd).value
+def run(command, inp):
+    command = dynamic_cast(T_STRING, command).value
     args = map(T_STRING.create_from, inp)
     args = list(map(lambda v: v.value, args))
 
-    print("Running '{}' with arguments {}".format(cmd, args))
-    subprocess.call([cmd] + args)
+    print("Running '{}' with arguments {}".format(command, args))
+    subprocess.call([command] + args)
 
 
 @register("exists")
@@ -259,9 +264,9 @@ def is_link(inp):
 
 @register("contains")
 @typed(T_STRING, T_BOOL)
-def contains(substr, inp):
-    substr = dynamic_cast(T_STRING, substr).value
-    return substr in inp
+def contains(substring, inp):
+    substring = dynamic_cast(T_STRING, substring).value
+    return substring in inp
 
 
 @register("nonempty", "non_empty")
@@ -277,5 +282,5 @@ def nonempty(inp):
 
 @register("equal", "equals", "eq")
 @typed(None, T_BOOL)
-def equal(b, inp):
-    return b.value == inp
+def equal(other, inp):
+    return other.value == inp

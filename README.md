@@ -23,7 +23,47 @@ export PATH="$PATH:/tmp/shell-functools/ft"
 
 You can call `ft-functions`, to get an overview of all available arguments to `map`, `filter`, etc.:
 
-`abspath`, `add`, `append`, `at`, `basename`, `capitalize`, `contains`, `dirname`, `drop`, `duplicate`, `eq`, `equal`, `equals`, `exists`, `has_ext`, `id`, `identity`, `index`, `is_dir`, `is_file`, `is_link`, `join`, `length`, `mul`, `non_empty`, `nonempty`, `prepend`, `replace`, `replace_ext`, `run`, `split`, `starts_with`, `startswith`, `strip`, `strip_ext`, `substr`, `take`, `to_lower`, `to_upper`
+```
+abspath             :: Path   → Path
+add num             :: Int    → Int
+append suffix       :: String → String
+at idx              :: Array  → String
+basename            :: Path   → Path
+capitalize          :: String → String
+contains substring  :: String → Bool
+dirname             :: Path   → Path
+drop count          :: String → String
+duplicate           :: String → Array
+eq other            :: *      → Bool
+equal other         :: *      → Bool
+equals other        :: *      → Bool
+exists              :: Path   → Bool
+has_ext ext         :: Path   → Bool
+id                  :: *      → *
+identity            :: *      → *
+index idx           :: Array  → String
+is_dir              :: Path   → Bool
+is_file             :: Path   → Bool
+is_link             :: Path   → Bool
+join separator      :: Array  → String
+length              :: String → Int
+mul num             :: Int    → Int
+non_empty           :: *      → Bool
+nonempty            :: *      → Bool
+prepend prefix      :: String → String
+replace old new     :: String → String
+replace_ext new_ext :: Path   → Path
+run command         :: Array  → !
+split separator     :: String → Array
+starts_with pattern :: String → Bool
+startswith pattern  :: String → Bool
+strip               :: String → String
+strip_ext           :: Path   → String
+substr start end    :: String → String
+take count          :: String → String
+to_lower            :: String → String
+to_upper            :: String → String
+```
 
 ## Examples
 
