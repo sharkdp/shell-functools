@@ -258,9 +258,14 @@ def contains(substr, inp):
 
 
 @register("non_empty")
-@typed(T_STRING, T_BOOL)
+@typed(None, T_BOOL)
 def nonempty(inp):
-    return inp.strip() != ""
+    if type(inp) == list:
+        return bool(inp)
+    elif type(inp) == str:
+        return inp.strip() != ""
+
+    return True
 
 
 @register("equal", "equals", "eq")
