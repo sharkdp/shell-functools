@@ -99,6 +99,14 @@ def to_upper(inp):
     return inp.upper()
 
 
+@register("substr")
+@typed(T_STRING, T_STRING)
+def substr(i1, i2, inp):
+    i1 = dynamic_cast(T_INT, i1).value
+    i2 = dynamic_cast(T_INT, i2).value
+    return inp[i1:i2]
+
+
 @register("replace")
 @typed(T_STRING, T_STRING)
 def replace(old, new, inp):
