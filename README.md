@@ -162,6 +162,10 @@ eq other            :: *      → Bool
 equal other         :: *      → Bool
 equals other        :: *      → Bool
 exists              :: Path   → Bool
+ge i                :: Int    → Bool
+greater i           :: Int    → Bool
+greater_equals i    :: Int    → Bool
+greater_than i      :: Int    → Bool
 has_ext ext         :: Path   → Bool
 id                  :: *      → *
 identity            :: *      → *
@@ -170,7 +174,11 @@ is_dir              :: Path   → Bool
 is_file             :: Path   → Bool
 is_link             :: Path   → Bool
 join separator      :: Array  → String
+le i                :: Int    → Bool
 length              :: String → Int
+less i              :: Int    → Bool
+less_equals i       :: Int    → Bool
+less_than i         :: Int    → Bool
 mul num             :: Int    → Int
 non_empty           :: *      → Bool
 nonempty            :: *      → Bool
@@ -179,6 +187,7 @@ replace old new     :: String → String
 replace_ext new_ext :: Path   → Path
 run command         :: Array  → !
 split separator     :: String → Array
+split_ext           :: Path   → Array
 starts_with pattern :: String → Bool
 startswith pattern  :: String → Bool
 strip               :: String → String
