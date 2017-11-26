@@ -35,9 +35,9 @@ def typed(type_in, type_out):
                                                                                     e.type_from))
 
             if len(args) > 1:
-                result = fn(*args[0:-1], inp.value)
+                result = fn(*args[0:-1], inp=inp.value)
             else:
-                result = fn(inp.value)
+                result = fn(inp=inp.value)
 
             if type_out is None:
                 return TypedValue(result, inp.fttype)
@@ -155,43 +155,43 @@ def length(inp):
 
 @register("basename")
 @typed(T_PATH, T_PATH)
-def basename(path):
-    return os.path.basename(path)
+def basename(inp):
+    return os.path.basename(inp)
 
 
 @register("abspath")
 @typed(T_PATH, T_PATH)
-def abspath(path):
-    return os.path.abspath(path)
+def abspath(inp):
+    return os.path.abspath(inp)
 
 
 @register("dirname")
 @typed(T_PATH, T_PATH)
-def dirname(path):
-    return os.path.dirname(path)
+def dirname(inp):
+    return os.path.dirname(inp)
 
 
 @register("replace_ext")
 @typed(T_PATH, T_PATH)
-def replace_ext(new_ext, path):
+def replace_ext(new_ext, inp):
     new_ext = dynamic_cast(T_STRING, new_ext).value
-    (base, ext) = os.path.splitext(path)
+    (base, ext) = os.path.splitext(inp)
     if ext != "":
         return base + "." + new_ext
-    return path
+    return inp
 
 
 @register("strip_ext")
 @typed(T_PATH, T_STRING)
-def strip_ext(path):
-    return os.path.splitext(path)[0]
+def strip_ext(inp):
+    return os.path.splitext(inp)[0]
 
 
 @register("has_ext")
 @typed(T_PATH, T_BOOL)
-def has_ext(ext, path):
+def has_ext(ext, inp):
     ext = dynamic_cast(T_STRING, ext).value
-    (_, file_ext) = os.path.splitext(path)
+    (_, file_ext) = os.path.splitext(inp)
     file_ext = file_ext[1:]  # strip leading dot
     return file_ext == ext
 
@@ -204,16 +204,16 @@ def id(inp):
 
 @register("add")
 @typed(T_INT, T_INT)
-def add(b, a):
+def add(b, inp):
     b = dynamic_cast(T_INT, b).value
-    return a + b
+    return inp + b
 
 
 @register("mul")
 @typed(T_INT, T_INT)
-def mul(b, a):
+def mul(b, inp):
     b = dynamic_cast(T_INT, b).value
-    return a * b
+    return inp * b
 
 
 @register("duplicate")
@@ -235,26 +235,26 @@ def run(cmd, inp):
 
 @register("exists")
 @typed(T_PATH, T_BOOL)
-def exists(path):
-    return os.path.exists(path)
+def exists(inp):
+    return os.path.exists(inp)
 
 
 @register("is_dir")
 @typed(T_PATH, T_BOOL)
-def is_dir(path):
-    return os.path.isdir(path)
+def is_dir(inp):
+    return os.path.isdir(inp)
 
 
 @register("is_file")
 @typed(T_PATH, T_BOOL)
-def is_file(path):
-    return os.path.isfile(path)
+def is_file(inp):
+    return os.path.isfile(inp)
 
 
 @register("is_link")
 @typed(T_PATH, T_BOOL)
-def is_link(path):
-    return os.path.islink(path)
+def is_link(inp):
+    return os.path.islink(inp)
 
 
 @register("contains")
@@ -277,5 +277,5 @@ def nonempty(inp):
 
 @register("equal", "equals", "eq")
 @typed(None, T_BOOL)
-def equal(b, a):
-    return b.value == a
+def equal(b, inp):
+    return b.value == inp
