@@ -19,6 +19,11 @@ git clone https://github.com/sharkdp/shell-functools /tmp/shell-functools
 export PATH="$PATH:/tmp/shell-functools/ft"
 ```
 
+## List of available function arguments
+
+You can call `ft-functions`, to get an overview of all available arguments to `map`, `filter`, etc.:
+
+`abspath`, `add`, `append`, `at`, `basename`, `capitalize`, `contains`, `dirname`, `drop`, `duplicate`, `eq`, `equal`, `equals`, `exists`, `has_ext`, `id`, `identity`, `index`, `is_dir`, `is_file`, `is_link`, `join`, `length`, `mul`, `non_empty`, `nonempty`, `prepend`, `replace`, `replace_ext`, `run`, `split`, `starts_with`, `startswith`, `strip`, `strip_ext`, `substr`, `take`, `to_lower`, `to_upper`
 
 ## Examples
 
