@@ -115,6 +115,13 @@ def replace(old, new, inp):
     return inp.replace(old.value, new.value)
 
 
+@register("starts_with", "startswith")
+@typed(T_STRING, T_BOOL)
+def starts_with(pattern, inp):
+    pattern = dynamic_cast(T_STRING, pattern).value
+    return inp.startswith(pattern)
+
+
 @register("split")
 @typed(T_STRING, T_ARRAY)
 def split(sep, inp):
@@ -257,7 +264,7 @@ def contains(substr, inp):
     return substr in inp
 
 
-@register("non_empty")
+@register("nonempty", "non_empty")
 @typed(None, T_BOOL)
 def nonempty(inp):
     if type(inp) == list:
