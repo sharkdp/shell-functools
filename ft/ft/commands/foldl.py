@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from ft.types import T_ARRAY
-from ft.internal import ftformat, add_dynamic_type
+from ft.internal import add_dynamic_type
 from ft.command import Command
 from ft.error import panic
 
@@ -9,7 +9,10 @@ from ft.error import panic
 class Foldl(Command):
     def __init__(self):
         super().__init__("foldl")
-        self.use_currying = False
+
+    def partial_application(self):
+        # Skip partial application
+        pass
 
     def initialize(self):
         # Initial value
@@ -26,7 +29,4 @@ class Foldl(Command):
             self.acc = self.function(value, self.acc)
 
     def finalize(self):
-        out = ftformat(self.acc)
-
-        if out:
-            print(out)
+        self.print_formatted(self.acc)

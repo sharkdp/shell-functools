@@ -56,16 +56,3 @@ def add_dynamic_type(inp):
 
     else:
         return TypedValue(inp, T_STRING)
-
-
-def input_values():
-    for line in sys.stdin.readlines():
-        # Strip newline symbols
-        if line.endswith("\r\n"):
-            line = line[:-2]
-        if line.endswith("\n"):
-            line = line[:-1]
-
-        value = add_dynamic_type(line)
-
-        yield value

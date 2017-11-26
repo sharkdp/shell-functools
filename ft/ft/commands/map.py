@@ -1,5 +1,4 @@
 from ft.types import T_ARRAY
-from ft.internal import ftformat
 from ft.command import Command
 
 
@@ -15,7 +14,4 @@ class Map(Command):
         else:
             result = self.function(value)
 
-        out = ftformat(result)
-
-        if out:
-            print(out)
+        self.print_formatted(result)

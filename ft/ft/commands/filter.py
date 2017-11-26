@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from ft.types import T_BOOL, T_ARRAY
-from ft.internal import ftformat
 from ft.error import panic
 from ft.command import Command
 
@@ -19,8 +18,6 @@ class Filter(Command):
 
         if result.fttype == T_BOOL:
             if result.value:
-                out = ftformat(value)
-                if out:
-                    print(out)
+                self.print_formatted(value)
         else:
             panic("The filter function needs to return a boolean")
