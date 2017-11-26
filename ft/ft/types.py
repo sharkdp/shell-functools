@@ -47,7 +47,8 @@ class FtArray(FtType):
         if inp.fttype == T_ARRAY:
             return inp
         elif inp.fttype == T_STRING:
-            return TypedValue(inp.value.split("\t"), T_ARRAY)
+            parts = map(lambda s: TypedValue(s, T_STRING), inp.value.split("\t"))
+            return TypedValue(list(parts), T_ARRAY)
 
         raise TypeConversionError(inp.fttype, T_ARRAY)
 
