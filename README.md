@@ -19,33 +19,46 @@ git clone https://github.com/sharkdp/shell-functools /tmp/shell-functools
 export PATH="$PATH:/tmp/shell-functools/ft"
 ```
 
-## Examples
+## Documentation and examples
 
-Assume we have the following directory contents:
+### Usage of `map`
+
+The `map` command takes a [function argument](#available-function-arguments) and applies it to every line of input:
 ``` bash
-> tree
-.
-├── deeply
-│   ├── nested
-│   │   └── directory
-│   │       └── song.mp3
-│   └── portrait.jpg
-├── doc_symlink.txt -> doc.txt
-├── doc.txt
-└── image.jpg
-
-3 directories, 5 files
-```
-
-Basic usage of `map` and `filter`:
-``` bash
-> find | filter is_file | map basename
-doc.txt
-doc_symlink.txt
-portrait.jpg
-song.mp3
+> ls
+document.txt
+folder
 image.jpg
+
+> ls | map abspath
+/tmp/demo/document.txt
+/tmp/demo/folder
+/tmp/demo/image.jpg
 ```
+
+### Usage of `foldl`
+
+The `foldl` command takes a [function argument](#available-function-arguments) and an initial value. The given function must be a binary function with two arguments, like `add` or `append`. The `foldl` command then applies this function iteratively by keeping an internal accumulator:
+
+Add up the numbers from 0 to 100:
+``` bash
+> seq 100 | foldl add 0
+5050
+```
+
+Multiply the numbers from 1 to 10:
+``` bash
+> seq 10 | foldl mul 1
+3628800
+```
+
+Append the numbers from 1 to 10 in a string:
+``` bash
+> seq 1 10 | map append " " | foldl append ""
+1 2 3 4 5 6 7 8 9 10 
+```
+
+### Advanced examples
 
 Get the login shell of user `shark`:
 ``` bash
@@ -53,19 +66,26 @@ Get the login shell of user `shark`:
 /usr/bin/zsh
 ```
 
-Basic usage of `foldl`:
+Working with columns:
 ``` bash
-> seq 100 | foldl add 0
-5050
-
-> seq 10 | foldl mul 1
-3628800
-```
-
-Working with two arguments:
-```
+> find -name '*.jpg' 
+./folder/me.jpg
+./image.jpg
+                                                                                   
+> find -name '*.jpg' | map duplicate
+./folder/me.jpg   ./folder/me.jpg
+./image.jpg       ./image.jpg
+                                                                                   
+> find -name '*.jpg' | map duplicate | map -c2 basename
+./folder/me.jpg   me.jpg
+./image.jpg       image.jpg
+                                                                                   
+> find -name '*.jpg' | map duplicate | map -c2 basename | map -c2 prepend "thumb_"
+./folder/me.jpg	  thumb_me.jpg
+./image.jpg       thumb_image.jpg
+                                                                                   
 > find -name '*.jpg' | map duplicate | map -c2 basename | map -c2 prepend "thumb_" | map run convert
-Running 'convert' with arguments ['./deeply/portrait.jpg', 'thumb_portrait.jpg']
+Running 'convert' with arguments ['./folder/me.jpg', 'thumb_me.jpg']
 Running 'convert' with arguments ['./image.jpg', 'thumb_image.jpg']
 ```
 
