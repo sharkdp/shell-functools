@@ -58,15 +58,10 @@ Append the numbers from 1 to 10 in a string:
 1 2 3 4 5 6 7 8 9 10 
 ```
 
-### Advanced examples
+### Working with columns
 
-Get the login shell of user `shark`:
-``` bash
-> cat /etc/passwd | map split : | filter -c1 equal shark | map index 6
-/usr/bin/zsh
-```
+The `--column` / `-c` option can be used to apply a given function only to a certain *column* in the input line (columns are separated by tabs). Column arrays can be created by using `duplicate` or `split`:
 
-Working with columns:
 ``` bash
 > find -name '*.jpg' 
 ./folder/me.jpg
@@ -88,6 +83,13 @@ Working with columns:
 Running 'convert' with arguments ['./folder/me.jpg', 'thumb_me.jpg']
 Running 'convert' with arguments ['./image.jpg', 'thumb_image.jpg']
 ```
+
+Get the login shell of user `shark`:
+``` bash
+> cat /etc/passwd | map split : | filter -c1 equal shark | map index 6
+/usr/bin/zsh
+```
+
 
 ## Available function arguments
 
