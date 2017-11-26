@@ -201,6 +201,13 @@ def has_ext(ext, inp):
     return file_ext == ext
 
 
+@register("split_ext")
+@typed(T_PATH, T_ARRAY)
+def split_ext(inp):
+    parts = os.path.splitext(inp)
+    return [TypedValue(parts[0], T_STRING), TypedValue(parts[1][1:], T_STRING)]
+
+
 @register("id", "identity")
 @typed(None, None)
 def id(inp):
