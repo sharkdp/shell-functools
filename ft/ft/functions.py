@@ -11,7 +11,7 @@ function_list = {}
 
 
 def register(*names):
-    if len(names) == 0 or type(names[0]) != str:
+    if len(names) == 0 or not isinstance(names[0], str):
         panic("Called @register without arguments")
 
     def wrap(fn):
@@ -154,7 +154,7 @@ def index(idx, inp):
         panic("array index out of range")
 
 
-@register("length")
+@register("length", "len")
 @typed(T_STRING, T_INT)
 def length(inp):
     return len(inp)
@@ -229,6 +229,13 @@ def add(num, inp):
     return inp + num
 
 
+@register("sub")
+@typed(T_INT, T_INT)
+def add(num, inp):
+    num = dynamic_cast(T_INT, num).value
+    return inp - num
+
+
 @register("mul")
 @typed(T_INT, T_INT)
 def mul(num, inp):
@@ -301,28 +308,34 @@ def equal(other, inp):
     return other.value == inp
 
 
-@register("greater_than", "greater")
+@register("not_equal", "not_equals", "ne")
+@typed(None, T_BOOL)
+def not_equals(other, inp):
+    return other.value != inp
+
+
+@register("greater", "greater_than", "gt")
 @typed(T_INT, T_BOOL)
 def greater_than(i, inp):
     i = dynamic_cast(T_INT, i).value
     return inp > i
 
 
-@register("greater_equals", "ge")
+@register("greater_equal", "greater_equals", "ge")
 @typed(T_INT, T_BOOL)
 def greater_equals(i, inp):
     i = dynamic_cast(T_INT, i).value
     return inp >= i
 
 
-@register("less_than", "less")
+@register("less", "less_than", "lt")
 @typed(T_INT, T_BOOL)
 def less_than(i, inp):
     i = dynamic_cast(T_INT, i).value
     return inp < i
 
 
-@register("less_equals", "le")
+@register("less_equal", "less_equals", "le")
 @typed(T_INT, T_BOOL)
 def less_equals(i, inp):
     i = dynamic_cast(T_INT, i).value

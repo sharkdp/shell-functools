@@ -162,54 +162,82 @@ Get the login shell of user `shark`:
 
 You can call `ft-functions`, to get an overview of all available arguments to `map`, `filter`, etc.:
 
+#### File and Directory operations ####
 ```
 abspath             :: Path   → Path
-add num             :: Int    → Int
-append suffix       :: String → String
-at idx              :: Array  → String
-basename            :: Path   → Path
-capitalize          :: String → String
-const value         :: *      → *
-contains substring  :: String → Bool
 dirname             :: Path   → Path
-drop count          :: String → String
-duplicate           :: String → Array
-eq other            :: *      → Bool
-equal other         :: *      → Bool
-equals other        :: *      → Bool
-exists              :: Path   → Bool
-ge i                :: Int    → Bool
-greater i           :: Int    → Bool
-greater_equals i    :: Int    → Bool
-greater_than i      :: Int    → Bool
-has_ext ext         :: Path   → Bool
-id                  :: *      → *
-identity            :: *      → *
-index idx           :: Array  → String
+basename            :: Path   → Path
 is_dir              :: Path   → Bool
 is_file             :: Path   → Bool
 is_link             :: Path   → Bool
-join separator      :: Array  → String
-le i                :: Int    → Bool
-length              :: String → Int
-less i              :: Int    → Bool
-less_equals i       :: Int    → Bool
-less_than i         :: Int    → Bool
-mul num             :: Int    → Int
+exists              :: Path   → Bool
+has_ext ext         :: Path   → Bool
+strip_ext           :: Path   → String
+replace_ext new_ext :: Path   → Path
+split_ext           :: Path   → Array
+```
+#### Logical operations ####
+```
 non_empty           :: *      → Bool
 nonempty            :: *      → Bool
-prepend prefix      :: String → String
-replace old new     :: String → String
-replace_ext new_ext :: Path   → Path
-run command         :: Array  → !
-split separator     :: String → Array
-split_ext           :: Path   → Array
-starts_with pattern :: String → Bool
-startswith pattern  :: String → Bool
+```
+#### Arithmetic operations ####
+```
+add num             :: Int    → Int
+sub num             :: Int    → Int
+mul num             :: Int    → Int
+```
+#### Comparison operations ####
+```
+eq other            :: *      → Bool
+equal other         :: *      → Bool
+equals other        :: *      → Bool
+ne other            :: *      → Bool
+not_equal other     :: *      → Bool
+not_equals other    :: *      → Bool
+ge i                :: Int    → Bool
+greater_equal i     :: Int    → Bool
+greater_equals i    :: Int    → Bool
+gt i                :: Int    → Bool
+greater i           :: Int    → Bool
+greater_than i      :: Int    → Bool
+le i                :: Int    → Bool
+less_equal i        :: Int    → Bool
+less_equals i       :: Int    → Bool
+lt i                :: Int    → Bool
+less i              :: Int    → Bool
+less_than i         :: Int    → Bool
+```
+#### String operations ####
+```
+append suffix       :: String → String
 strip               :: String → String
-strip_ext           :: Path   → String
 substr start end    :: String → String
 take count          :: String → String
 to_lower            :: String → String
 to_upper            :: String → String
+replace old new     :: String → String
+prepend prefix      :: String → String
+capitalize          :: String → String
+drop count          :: String → String
+duplicate           :: String → Array
+contains substring  :: String → Bool
+starts_with pattern :: String → Bool
+startswith pattern  :: String → Bool
+len                 :: String → Int
+length              :: String → Int
+```
+#### Array operations ####
+```
+at idx              :: Array  → String
+index idx           :: Array  → String
+join separator      :: Array  → String
+split separator     :: String → Array
+```
+#### Other operations ####
+```
+const value         :: *      → *
+run command         :: Array  → !
+id                  :: *      → *
+identity            :: *      → *
 ```
