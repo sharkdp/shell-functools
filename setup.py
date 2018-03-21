@@ -4,8 +4,10 @@ import os
 
 from setuptools import setup, find_packages
 
-NAME = 'ft'
-VERSION = '1.0.0'
+from ft import ft
+
+NAME = 'shell-functools'
+VERSION = ft.__version__
 PACKAGES = find_packages(
     'ft', exclude=['*.tests', '*.tests.*', 'tests.*', 'tests']
 )
@@ -15,8 +17,8 @@ PACKAGE_DIR = {
 PACKAGE_DATA = {
     '': ['']
 }
-AUTHOR = 'sharkdp'
-AUTHOR_EMAIL = ''
+AUTHOR = 'David Peter'
+AUTHOR_EMAIL = 'mail@david-peter.de'
 URL = 'https://github.com/sharkdp/shell-functools'
 
 
