@@ -1,5 +1,7 @@
 # shell-functools
 
+[![Build Status](https://travis-ci.org/franklingu/shell-functools.svg?branch=master)](https://travis-ci.org/franklingu/shell-functools)
+
 *A collection of functional programming tools for the shell.*
 
 This project provides higher order functions like `map`, `filter` and `foldl` as simple command-line tools.
