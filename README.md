@@ -1,6 +1,6 @@
 # shell-functools
 
-[![Build Status](https://travis-ci.org/franklingu/shell-functools.svg?branch=master)](https://travis-ci.org/franklingu/shell-functools)
+[![Build Status](https://travis-ci.org/sharkdp/shell-functools.svg?branch=master)](https://travis-ci.org/sharkdp/shell-functools)
 
 *A collection of functional programming tools for the shell.*
 
