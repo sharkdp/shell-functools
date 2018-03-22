@@ -4,10 +4,11 @@ import os
 
 from setuptools import setup, find_packages
 
-from ft import ft
-
 NAME = 'shell-functools'
-VERSION = ft.__version__
+
+exec(open("ft/ft/version.py").read())
+
+VERSION = __version__
 PACKAGES = find_packages(
     'ft', exclude=['*.tests', '*.tests.*', 'tests.*', 'tests']
 )
