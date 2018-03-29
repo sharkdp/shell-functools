@@ -11,9 +11,7 @@ class SortByKey(Command):
         val = value
         if value.fttype == T_ARRAY and self.column is not None:
             val = value.value[self.column - 1]
-        else:
-            result = self.function(value)
-            
+        
         result = self.function(val)
         self.arr.append( (val, result) )
     
