@@ -4,7 +4,7 @@
 
 *A collection of functional programming tools for the shell.*
 
-This project provides higher order functions like `map`, `filter` and `foldl` as simple command-line tools.
+This project provides higher order functions like `map`, `filter`, `foldl`, `sort_by` and `take_while` as simple command-line tools.
 Following the UNIX philosophy, these commands are designed to be composed via pipes. A
 [large collection](#available-function-arguments) of functions such as `basename`, `replace`, `contains` or `is_dir` are provided as
 arguments to these commands.
@@ -17,6 +17,7 @@ arguments to these commands.
     * [Usage of `map`](#usage-of-map)
     * [Usage of `filter`](#usage-of-filter)
     * [Usage of `foldl`](#usage-of-foldl)
+    * [Usage of `sort_by`](#usage-of-sort_by)
     * [Chaining commands](#chaining-commands)
     * [Working with columns](#working-with-columns)
     * [Available function arguments](#available-function-arguments)
@@ -95,6 +96,23 @@ Append the numbers from 1 to 10 in a string:
 ``` bash
 > seq 1 10 | map append " " | foldl append ""
 1 2 3 4 5 6 7 8 9 10
+```
+
+### Usage of `sort_by`
+
+The `sort_by` command also takes a [function argument](#available-function-arguments). In the
+background, it calls the function on each input line and uses the results to sort the *original input*:
+``` bash
+> ls
+document.txt  folder  image.jpg
+> ls | map filesize
+29
+4096
+69535
+> ls | sort_by filesize
+document.txt
+folder
+image.jpg
 ```
 
 ### Chaining commands
