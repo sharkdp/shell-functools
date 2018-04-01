@@ -255,6 +255,18 @@ def mul(num, inp):
     return inp * num
 
 
+@register("even")
+@typed(T_INT, T_BOOL)
+def even(inp):
+    return inp % 2 == 0
+
+
+@register("odd")
+@typed(T_INT, T_BOOL)
+def odd(inp):
+    return inp % 2 == 1
+
+
 @register("duplicate")
 @typed(T_STRING, T_ARRAY)
 def duplicate(inp):
