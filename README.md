@@ -140,6 +140,19 @@ document.txt.bak
 image.jpg.bak
 ```
 
+### Lazy evaluation
+
+All commands support lazy evaluation (i.e. they consume input in a streaming way) and early exit
+(on broken pipes).
+
+As an example, suppose we want to compute the sum of all odd squares lower than 10000. Assuming we
+have a command that prints the numbers from 1 to infinity (use `alias infinity="seq 999999999"` as
+an approximation), we can write:
+``` bash
+> infinity | filter odd | map pow 2 | take_while less_than 10000 | foldl add 0
+166650
+```
+
 ### Working with columns
 
 The `--column` / `-c` option can be used to apply a given function to a certain *column* in the input line (columns are separated by tabs). Column arrays can be created by using functions such as `duplicate`, `split sep` or `split_ext`:
