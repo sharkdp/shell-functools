@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+
+from ft.commands.sort_by_key import SortByKey
+
+SortByKey().run()
+

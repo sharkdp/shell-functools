@@ -15,6 +15,24 @@ class TypedValue:
     def __repr__(self):
         return str(self)
 
+    def __eq__(self, other):
+        return self.value == other.value
+
+    def _ne__(self, other):
+        return not (self.value == other.value)
+
+    def __lt__(self, other):
+        return self.value < other.value
+
+    def __le__(self, other):
+        return self.value <= other.value
+
+    def __gt__(self, other):
+        return self.value > other.value
+
+    def __ge__(self, other):
+        return self.value >= other.value
+
 
 class FtType:
     def __init__(self):
