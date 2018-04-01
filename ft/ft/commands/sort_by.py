@@ -8,12 +8,12 @@ class SortBy(Command):
         self.arr = []
 
     def handle_input(self, value):
-        val = value
         if value.fttype == T_ARRAY and self.column is not None:
-            val = value.value[self.column - 1]
+            result = self.function(value.value[self.column - 1])
+        else:
+            result = self.function(value)
 
-        result = self.function(val)
-        self.arr.append((val, result))
+        self.arr.append((value, result))
 
     def finalize(self):
         arr = sorted(self.arr, key=lambda x: x[1])
