@@ -101,7 +101,8 @@ Append the numbers from 1 to 10 in a string:
 ### Usage of `sort_by`
 
 The `sort_by` command also takes a [function argument](#available-function-arguments). In the
-background, it calls the function on each input line and uses the results to sort the *original input*:
+background, it calls the function on each input line and uses the results to sort the *original input*.
+Consider the following scenario:
 ``` bash
 > ls
 document.txt  folder  image.jpg
@@ -109,6 +110,10 @@ document.txt  folder  image.jpg
 29
 4096
 69535
+```
+
+We can use the `filesize` function to sort the entries by size:
+```
 > ls | sort_by filesize
 document.txt
 folder
