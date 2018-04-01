@@ -59,7 +59,7 @@ class Command:
             self.function = partial(self.function, *args)
 
     def input_lines(self):
-        for line in sys.stdin.readlines():
+        for line in sys.stdin:
             # Strip newline symbols
             if line.endswith("\r\n"):
                 line = line[:-2]
