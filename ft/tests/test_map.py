@@ -28,6 +28,3 @@ def test_map_id():
 def test_map_split_ext():
     map_test.set_input("split_ext", [], ["file.txt", "dir/image.jpg"])
     map_test.assert_output(["file\ttxt", "dir/image\tjpg"])
-
-
-
