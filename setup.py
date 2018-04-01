@@ -54,6 +54,7 @@ setup(
         'ft/foldl',
         'ft/ft-functions',
         'ft/map',
+        'ft/sort_by_key',
     ],
     classifiers=[
         'Programming Language :: Python :: 3.5',
