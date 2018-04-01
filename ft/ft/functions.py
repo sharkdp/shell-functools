@@ -171,6 +171,7 @@ def basename(inp):
 def abspath(inp):
     return os.path.abspath(inp)
 
+
 @register("filesize")
 @typed(T_PATH, T_INT)
 def filesize(inp):
@@ -242,7 +243,7 @@ def add(num, inp):
 
 @register("sub")
 @typed(T_INT, T_INT)
-def add(num, inp):
+def sub(num, inp):
     num = dynamic_cast(T_INT, num).value
     return inp - num
 
