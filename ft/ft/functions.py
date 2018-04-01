@@ -248,6 +248,13 @@ def sub(num, inp):
     return inp - num
 
 
+@register("pow")
+@typed(T_INT, T_INT)
+def power(num, inp):
+    num = dynamic_cast(T_INT, num).value
+    return pow(inp, num)
+
+
 @register("mul")
 @typed(T_INT, T_INT)
 def mul(num, inp):
