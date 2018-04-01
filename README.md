@@ -144,7 +144,7 @@ image.jpg.bak
 ### Lazy evaluation
 
 All commands support lazy evaluation (i.e. they consume input in a streaming way) and never perform
-unnecessary work (the exit early if the *output* pipe is closed).
+unnecessary work (they exit early if the *output* pipe is closed).
 
 As an example, suppose we want to compute the sum of all odd squares lower than 10000. Assuming we
 have a command that prints the numbers from 1 to infinity (use `alias infinity="seq 999999999"` for
