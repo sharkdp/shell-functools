@@ -2,9 +2,9 @@ from ft.types import T_ARRAY
 from ft.command import Command
 
 
-class SortByKey(Command):
+class SortBy(Command):
     def __init__(self):
-        super().__init__("sort_by_key")
+        super().__init__("sort_by")
         self.arr = []
 
     def handle_input(self, value):
