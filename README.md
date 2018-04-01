@@ -19,6 +19,7 @@ arguments to these commands.
     * [Usage of `foldl`](#usage-of-foldl)
     * [Usage of `sort_by`](#usage-of-sort_by)
     * [Chaining commands](#chaining-commands)
+    * [Lazy evaluation](#lazy-evaluation)
     * [Working with columns](#working-with-columns)
     * [Available function arguments](#available-function-arguments)
 
