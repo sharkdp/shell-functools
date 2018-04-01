@@ -55,6 +55,7 @@ setup(
         'ft/ft-functions',
         'ft/map',
         'ft/sort_by',
+        'ft/take_while',
     ],
     classifiers=[
         'Programming Language :: Python :: 3.5',

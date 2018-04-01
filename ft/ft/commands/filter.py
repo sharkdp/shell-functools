@@ -6,8 +6,9 @@ from ft.command import Command
 
 
 class Filter(Command):
-    def __init__(self):
-        super().__init__("filter")
+    def __init__(self, name="filter"):
+        super().__init__(name)
+        self.exit_when_false = False
 
     def handle_input(self, value):
         val_to_test = value
@@ -19,5 +20,9 @@ class Filter(Command):
         if result.fttype == T_BOOL:
             if result.value:
                 self.print_formatted(value)
+            else:
+                if self.exit_when_false:
+                    self.exit_early = True
         else:
-            panic("The filter function needs to return a 'Bool', got '{}'".format(result.fttype))
+            panic("The function argument to '{}' needs to return a 'Bool', got '{}'"
+                  .format(self.name, result.fttype))

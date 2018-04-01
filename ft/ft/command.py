@@ -14,6 +14,7 @@ class Command:
         self.column = None
         self.arguments = None
         self.function = None
+        self.exit_early = False
 
     def get_argument_parser(self):
         parser = argparse.ArgumentParser(description=self.name)
@@ -85,5 +86,8 @@ class Command:
             value = add_dynamic_type(line)
 
             self.handle_input(value)
+
+            if self.exit_early:
+                break
 
         self.finalize()
