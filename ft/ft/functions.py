@@ -171,17 +171,6 @@ def basename(inp):
 def abspath(inp):
     return os.path.abspath(inp)
 
-@register("filesize")
-@typed(T_PATH, T_INT)
-def filesize(inp):
-    return os.path.getsize(inp)
-
-
-@register("file_ext")
-@typed(T_PATH, T_STRING)
-def file_ext(inp):
-    return os.path.splitext(inp)[1]
-
 
 @register("filesize")
 @typed(T_PATH, T_INT)
