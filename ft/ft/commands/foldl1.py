@@ -14,7 +14,7 @@ class Foldl1(Foldl):
     def handle_input(self, value):
         if value.fttype == T_ARRAY and self.column is not None:
             idx = self.column - 1
-            val = self.value[idx]
+            val = value.value[idx]
         else:
             val = value
 
