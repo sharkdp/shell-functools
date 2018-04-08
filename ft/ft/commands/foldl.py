@@ -21,10 +21,15 @@ class Foldl(Command):
 
         self.acc = add_dynamic_type(self.arguments[0])
 
-    def handle_input(self, value):
-        if value.fttype == T_ARRAY and self.column is not None:
+    def handle_input(self, inp):
+        if inp.fttype == T_ARRAY and self.column is not None:
             idx = self.column - 1
-            self.acc = self.function(value.value[idx], self.acc)
+            value = inp.value[idx]
+        else:
+            value = inp
+
+        if self.acc is None:
+            self.acc = value
         else:
             self.acc = self.function(value, self.acc)
 

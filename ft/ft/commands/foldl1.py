@@ -10,15 +10,3 @@ class Foldl1(Foldl):
 
     def initialize(self):
         self.acc = None
-
-    def handle_input(self, value):
-        if value.fttype == T_ARRAY and self.column is not None:
-            idx = self.column - 1
-            val = value.value[idx]
-        else:
-            val = value
-
-        if self.acc is None:
-            self.acc = val
-        else:
-            self.acc = self.function(val, self.acc)
