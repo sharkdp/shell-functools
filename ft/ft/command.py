@@ -1,5 +1,6 @@
 import sys
 import argparse
+from signal import signal, SIGPIPE, SIG_DFL
 
 from functools import partial
 
@@ -14,6 +15,14 @@ class Command:
         self.column = None
         self.arguments = None
         self.function = None
+        self.exit_early = False
+
+        self.configure_broken_pipe()
+
+    @staticmethod
+    def configure_broken_pipe():
+        # Use the default behavior (exit quietly) when catching SIGPIPE
+        signal(SIGPIPE, SIG_DFL)
 
     def get_argument_parser(self):
         parser = argparse.ArgumentParser(description=self.name)
@@ -50,7 +59,7 @@ class Command:
             self.function = partial(self.function, *args)
 
     def input_lines(self):
-        for line in sys.stdin.readlines():
+        for line in sys.stdin:
             # Strip newline symbols
             if line.endswith("\r\n"):
                 line = line[:-2]
@@ -85,5 +94,8 @@ class Command:
             value = add_dynamic_type(line)
 
             self.handle_input(value)
+
+            if self.exit_early:
+                break
 
         self.finalize()

@@ -183,6 +183,18 @@ def file_ext(inp):
     return os.path.splitext(inp)[1]
 
 
+@register("filesize")
+@typed(T_PATH, T_INT)
+def filesize(inp):
+    return os.path.getsize(inp)
+
+
+@register("file_ext")
+@typed(T_PATH, T_STRING)
+def file_ext(inp):
+    return os.path.splitext(inp)[1]
+
+
 @register("dirname")
 @typed(T_PATH, T_PATH)
 def dirname(inp):
@@ -242,9 +254,16 @@ def add(num, inp):
 
 @register("sub")
 @typed(T_INT, T_INT)
-def add(num, inp):
+def sub(num, inp):
     num = dynamic_cast(T_INT, num).value
     return inp - num
+
+
+@register("pow")
+@typed(T_INT, T_INT)
+def power(num, inp):
+    num = dynamic_cast(T_INT, num).value
+    return pow(inp, num)
 
 
 @register("mul")
@@ -252,6 +271,18 @@ def add(num, inp):
 def mul(num, inp):
     num = dynamic_cast(T_INT, num).value
     return inp * num
+
+
+@register("even")
+@typed(T_INT, T_BOOL)
+def even(inp):
+    return inp % 2 == 0
+
+
+@register("odd")
+@typed(T_INT, T_BOOL)
+def odd(inp):
+    return inp % 2 == 1
 
 
 @register("duplicate")

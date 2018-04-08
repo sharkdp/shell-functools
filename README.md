@@ -4,7 +4,7 @@
 
 *A collection of functional programming tools for the shell.*
 
-This project provides higher order functions like `map`, `filter` and `foldl` as simple command-line tools.
+This project provides higher order functions like `map`, `filter`, `foldl`, `sort_by` and `take_while` as simple command-line tools.
 Following the UNIX philosophy, these commands are designed to be composed via pipes. A
 [large collection](#available-function-arguments) of functions such as `basename`, `replace`, `contains` or `is_dir` are provided as
 arguments to these commands.
@@ -17,7 +17,9 @@ arguments to these commands.
     * [Usage of `map`](#usage-of-map)
     * [Usage of `filter`](#usage-of-filter)
     * [Usage of `foldl`](#usage-of-foldl)
+    * [Usage of `sort_by`](#usage-of-sort_by)
     * [Chaining commands](#chaining-commands)
+    * [Lazy evaluation](#lazy-evaluation)
     * [Working with columns](#working-with-columns)
     * [Available function arguments](#available-function-arguments)
 
@@ -97,6 +99,28 @@ Append the numbers from 1 to 10 in a string:
 1 2 3 4 5 6 7 8 9 10
 ```
 
+### Usage of `sort_by`
+
+The `sort_by` command also takes a [function argument](#available-function-arguments). In the
+background, it calls the function on each input line and uses the results to sort the *original input*.
+Consider the following scenario:
+``` bash
+> ls
+document.txt  folder  image.jpg
+> ls | map filesize
+29
+4096
+69535
+```
+
+We can use the `filesize` function to sort the entries by size:
+```
+> ls | sort_by filesize
+document.txt
+folder
+image.jpg
+```
+
 ### Chaining commands
 
 All of these commands can be composed by using standard UNIX pipes:
@@ -115,6 +139,19 @@ me.jpg.bak
 song.mp3.bak
 document.txt.bak
 image.jpg.bak
+```
+
+### Lazy evaluation
+
+All commands support lazy evaluation (i.e. they consume input in a streaming way) and never perform
+unnecessary work (they exit early if the *output* pipe is closed).
+
+As an example, suppose we want to compute the sum of all odd squares lower than 10000. Assuming we
+have a command that prints the numbers from 1 to infinity (use `alias infinity="seq 999999999"` for
+an approximation), we can write:
+``` bash
+> infinity | filter odd | map pow 2 | take_while less_than 10000 | foldl add 0
+166650
 ```
 
 ### Working with columns
