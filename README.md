@@ -17,6 +17,7 @@ arguments to these commands.
     * [Usage of `map`](#usage-of-map)
     * [Usage of `filter`](#usage-of-filter)
     * [Usage of `foldl`](#usage-of-foldl)
+    * [Usage of `foldl1`](#usage-of-foldl1)
     * [Usage of `sort_by`](#usage-of-sort_by)
     * [Chaining commands](#chaining-commands)
     * [Lazy evaluation](#lazy-evaluation)
@@ -95,8 +96,18 @@ Multiply the numbers from 1 to 10:
 
 Append the numbers from 1 to 10 in a string:
 ``` bash
-> seq 1 10 | map append " " | foldl append ""
+> seq 10 | map append " " | foldl append ""
 1 2 3 4 5 6 7 8 9 10
+```
+
+### Usage of `foldl1`
+
+The `foldl1` command is a variant of `foldl` that uses the first input as the initial value.
+This can be used to shorten the example above to:
+``` bash
+> seq 100 | foldl1 add
+> seq 10 | foldl1 mul
+> seq 10 | map append " " | foldl1 append
 ```
 
 ### Usage of `sort_by`
@@ -150,7 +161,7 @@ As an example, suppose we want to compute the sum of all odd squares lower than 
 have a command that prints the numbers from 1 to infinity (use `alias infinity="seq 999999999"` for
 an approximation), we can write:
 ``` bash
-> infinity | filter odd | map pow 2 | take_while less_than 10000 | foldl add 0
+> infinity | filter odd | map pow 2 | take_while less_than 10000 | foldl1 add
 166650
 ```
 
