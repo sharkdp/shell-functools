@@ -52,6 +52,7 @@ setup(
     scripts=[
         'ft/filter',
         'ft/foldl',
+        'ft/foldl1',
         'ft/ft-functions',
         'ft/map',
         'ft/sort_by',

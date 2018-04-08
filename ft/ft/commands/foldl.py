@@ -7,8 +7,8 @@ from ft.error import panic
 
 
 class Foldl(Command):
-    def __init__(self):
-        super().__init__("foldl")
+    def __init__(self, name="foldl"):
+        super().__init__(name)
 
     def partial_application(self):
         # Skip partial application
