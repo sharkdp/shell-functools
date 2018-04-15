@@ -117,19 +117,19 @@ background, it calls the function on each input line and uses the results to sor
 Consider the following scenario:
 ``` bash
 > ls
-document.txt  folder  image.jpg
+a.mp4  b.tar.gz  c.txt
 > ls | map filesize
-29
-4096
-69535
+7674860
+126138
+2214
 ```
 
 We can use the `filesize` function to sort the entries by size:
 ```
 > ls | sort_by filesize
-document.txt
-folder
-image.jpg
+c.txt
+b.tar.gz
+a.mp4
 ```
 
 ### Chaining commands
