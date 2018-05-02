@@ -44,7 +44,6 @@ class Command:
 
         self.column = args.column
         self.arguments = args.args
-        self.negate_predicate = args.negate
 
         function_name = args.function
         try:

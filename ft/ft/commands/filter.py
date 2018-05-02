@@ -4,6 +4,7 @@ from ft.types import T_BOOL, T_ARRAY
 from ft.error import panic
 from ft.command import Command
 
+
 class Filter(Command):
     def __init__(self, name="filter"):
         super().__init__(name)
