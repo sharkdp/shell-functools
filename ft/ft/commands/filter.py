@@ -10,7 +10,6 @@ class Filter(Command):
         self.exit_when_false = False
 
     def handle_input(self, value):
-
         val_to_test = value
         if self.column and value.fttype == T_ARRAY:
             val_to_test = value.value[self.column - 1]
@@ -21,7 +20,6 @@ class Filter(Command):
             if hasattr(self, 'negate_predicate'):
                 if self.negate_predicate:
                     result.value = not result.value
-
             if result.value:
                 self.print_formatted(value)
             else:
