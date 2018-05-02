@@ -128,6 +128,11 @@ def starts_with(pattern, inp):
     pattern = dynamic_cast(T_STRING, pattern).value
     return inp.startswith(pattern)
 
+@register("ends_with", "endswith")
+@typed(T_STRING, T_BOOL)
+def ends_with(pattern, inp):
+    pattern = dynamic_cast(T_STRING, pattern).value
+    return inp.endswith(pattern)
 
 @register("split")
 @typed(T_STRING, T_ARRAY)
