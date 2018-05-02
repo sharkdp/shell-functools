@@ -17,9 +17,6 @@ class Filter(Command):
         result = self.function(val_to_test)
 
         if result.fttype == T_BOOL:
-            if hasattr(self, 'negate_predicate'):
-                if self.negate_predicate:
-                    result.value = not result.value
             if result.value:
                 self.print_formatted(value)
             else:
