@@ -30,7 +30,9 @@ class Command:
         parser.add_argument('args', help='optional arguments', nargs='*')
         parser.add_argument('--column', '-c', type=int,
                             help='apply function to a specific column')
-
+        parser.add_argument('--negate', '-n',
+                            action='store_true',
+                            help='negate predicate')
         parser = self.add_command_arguments(parser)
 
         return parser
@@ -45,6 +47,7 @@ class Command:
 
         self.column = args.column
         self.arguments = args.args
+        self.negate_predicate = args.negate
 
         function_name = args.function
         try:
