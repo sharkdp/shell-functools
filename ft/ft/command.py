@@ -30,7 +30,7 @@ class Command:
         parser.add_argument('args', help='optional arguments', nargs='*')
         parser.add_argument('--column', '-c', type=int,
                             help='apply function to a specific column')
-        
+
         parser = self.add_command_arguments(parser)
 
         return parser
