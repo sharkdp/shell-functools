@@ -9,7 +9,7 @@ class Filter(Command):
     def __init__(self, name="filter"):
         super().__init__(name)
         self.exit_when_false = False
-
+        self.negate_predicate = False
 
     def add_command_arguments(self, parser):
         parser.add_argument('--negate', '-n',
@@ -40,9 +40,8 @@ class Filter(Command):
         result = self.function(val_to_test)
 
         if result.fttype == T_BOOL:
-            if hasattr(self, 'negate_predicate'):
-                if self.negate_predicate:
-                    result.value = not result.value
+            if self.negate_predicate:
+                result.value = not result.value
             if result.value:
                 self.print_formatted(value)
             else:
