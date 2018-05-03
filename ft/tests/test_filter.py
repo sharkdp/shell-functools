@@ -18,3 +18,10 @@ def test_filter_greater_equals():
     test_filter = mock_command(Filter)
     test_filter.set_input("greater_equals", ["3"], ["3", "2", "5", "4", "1"])
     test_filter.assert_output(["3", "5", "4"])
+
+
+def test_filter_negate_predicate():
+    test_filter = mock_command(Filter)
+    test_filter.negate_predicate = True
+    test_filter.set_input("even", [], ["1", "2", "3", "4"])
+    test_filter.assert_output(["1", "3"])
