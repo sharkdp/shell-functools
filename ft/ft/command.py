@@ -48,7 +48,7 @@ class Command:
         self.column = args.column
         self.arguments = args.args
 
-        self.parse_additional_command_arguments(self, args)
+        self.parse_additional_command_arguments(args)
 
         function_name = args.function
         try:

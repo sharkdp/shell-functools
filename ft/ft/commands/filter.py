@@ -3,7 +3,7 @@
 from ft.types import T_BOOL, T_ARRAY
 from ft.error import panic
 from ft.command import Command
-from ft.functions import function_list
+
 
 class Filter(Command):
     def __init__(self, name="filter"):
