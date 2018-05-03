@@ -17,20 +17,8 @@ class Filter(Command):
                             help='negate predicate')
         return parser
 
-    def parse_args(self):
-        parser = self.get_argument_parser()
-
-        args = parser.parse_args()
-
-        self.column = args.column
-        self.arguments = args.args
+    def parse_additional_command_arguments(self, args):
         self.negate_predicate = args.negate
-
-        function_name = args.function
-        try:
-            self.function = function_list[function_name]
-        except KeyError:
-            panic("Function not found: '{}'".format(function_name))
 
     def handle_input(self, value):
         val_to_test = value

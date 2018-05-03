@@ -38,13 +38,17 @@ class Command:
     def add_command_arguments(self, parser):
         return parser
 
+    def parse_additional_command_arguments(self, args):
+        pass
+
     def parse_args(self):
         parser = self.get_argument_parser()
 
         args = parser.parse_args()
-
         self.column = args.column
         self.arguments = args.args
+
+        self.parse_additional_command_arguments(self, args)
 
         function_name = args.function
         try:
