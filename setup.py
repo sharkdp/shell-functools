@@ -40,6 +40,7 @@ setup(
     author_email=AUTHOR_EMAIL,
     description=DESCRIPTION,
     long_description=LONG_DESC,
+    long_description_content_type="text/markdown",
     url=URL,
     keywords=KEYWORDS,
     license='MIT',
