@@ -376,3 +376,14 @@ def less_than(i, inp):
 def less_equals(i, inp):
     i = dynamic_cast(T_INT, i).value
     return inp <= i
+
+
+@register("format")
+@typed(None, T_STRING)
+def format(format_string, inp):
+    try:
+        return (format_string.value).format(float(inp))
+    except:
+        panic("Incorrect format string {} for input {}".format(
+            format_string.value, inp)
+        )
