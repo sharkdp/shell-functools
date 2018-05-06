@@ -128,11 +128,13 @@ def starts_with(pattern, inp):
     pattern = dynamic_cast(T_STRING, pattern).value
     return inp.startswith(pattern)
 
+
 @register("ends_with", "endswith")
 @typed(T_STRING, T_BOOL)
 def ends_with(pattern, inp):
     pattern = dynamic_cast(T_STRING, pattern).value
     return inp.endswith(pattern)
+
 
 @register("split")
 @typed(T_STRING, T_ARRAY)
@@ -383,7 +385,7 @@ def less_equals(i, inp):
 def format(format_string, inp):
     try:
         return format_string.value.format(inp)
-    except:
-        panic('Incorrect format string {} for input {}.'.format(
+    except ValueError:
+        panic("Incorrect format string '{}' for input '{}'.".format(
             format_string.value, inp)
         )
