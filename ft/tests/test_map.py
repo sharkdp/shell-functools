@@ -31,3 +31,15 @@ def test_map_split_ext():
     map_test = mock_command(Map)
     map_test.set_input("split_ext", [], ["file.txt", "dir/image.jpg"])
     map_test.assert_output(["file\ttxt", "dir/image\tjpg"])
+
+
+def test_map_format_string():
+    map_test = mock_command(Map)
+    map_test.set_input("format", ["{:>5}"], ["abc", "b"])
+    map_test.assert_output(["  abc", "    b"])
+
+
+def test_map_format_int():
+    map_test = mock_command(Map)
+    map_test.set_input("format", ["{:02x}"], ["3", "11", "255"])
+    map_test.assert_output(["03", "0b", "ff"])
