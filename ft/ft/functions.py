@@ -381,22 +381,9 @@ def less_equals(i, inp):
 @register("format")
 @typed(None, T_STRING)
 def format(format_string, inp):
-    format_string = format_string.value
-    is_float = format_string.endswith('f}')
-    is_integer = format_string.endswith('d}')
-    if is_float:
-        try:
-            inp = float(inp)
-        except ValueError:
-            pass
-    elif is_integer:
-        try:
-            inp = int(inp)
-        except ValueError:
-            pass
     try:
         return format_string.format(inp)
     except:
         panic('Incorrect format string {} for input {}.'.format(
-            format_string, inp)
+            format_string.value, inp)
         )
