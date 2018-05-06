@@ -382,7 +382,7 @@ def less_equals(i, inp):
 @typed(None, T_STRING)
 def format(format_string, inp):
     try:
-        return format_string.format(inp)
+        return format_string.value.format(inp)
     except:
         panic('Incorrect format string {} for input {}.'.format(
             format_string.value, inp)
