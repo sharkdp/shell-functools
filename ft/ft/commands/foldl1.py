@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from ft.types import T_ARRAY
 from ft.commands.foldl import Foldl
 
 

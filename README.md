@@ -241,6 +241,9 @@ nonempty            :: *      → Bool
 add num             :: Int    → Int
 sub num             :: Int    → Int
 mul num             :: Int    → Int
+even                :: Int    → Bool
+odd                 :: Int    → Bool
+pow num             :: Int    → Int
 ```
 #### Comparison operations ####
 ```
@@ -279,8 +282,11 @@ duplicate           :: String → Array
 contains substring  :: String → Bool
 starts_with pattern :: String → Bool
 startswith pattern  :: String → Bool
+ends_with pattern   :: String → Bool
+endswith pattern    :: String → Bool
 len                 :: String → Int
 length              :: String → Int
+format format_str   :: *      → String
 ```
 #### Array operations ####
 ```
