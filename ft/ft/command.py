@@ -26,7 +26,8 @@ class Command:
 
     def get_argument_parser(self):
         parser = argparse.ArgumentParser(description=self.name)
-        parser.add_argument('function', help='the function to run for each input')
+        parser.add_argument('function', help='the function to run for each input',
+                            default='identity', nargs='?')
         parser.add_argument('args', help='optional arguments', nargs='*')
         parser.add_argument('--column', '-c', type=int,
                             help='apply function to a specific column')
@@ -50,6 +51,7 @@ class Command:
 
         self.parse_additional_command_arguments(args)
 
+        # Some functions such as `max` and `min` don't take a function.
         function_name = args.function
         try:
             self.function = function_list[function_name]
