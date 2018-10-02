@@ -58,6 +58,7 @@ setup(
         'ft/map',
         'ft/sort_by',
         'ft/take_while',
+        'ft/max'
     ],
     classifiers=[
         'Programming Language :: Python :: 3.5',
