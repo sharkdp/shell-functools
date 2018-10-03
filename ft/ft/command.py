@@ -50,7 +50,6 @@ class Command:
 
         self.parse_additional_command_arguments(args)
 
-        # Some functions such as `max` and `min` don't take a function.
         function_name = args.function
         try:
             self.function = function_list[function_name]
