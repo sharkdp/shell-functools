@@ -55,6 +55,19 @@ def typed(type_in, type_out):
 
     return wrap
 
+@register("max")
+@typed(T_INT, T_INT)
+def max(value, inp):
+    v = dynamic_cast(T_INT, value).value
+    return inp if inp > v else v
+
+
+@register("min")
+@typed(T_INT, T_INT)
+def min(value, inp):
+    v = dynamic_cast(T_INT, value).value
+    return inp if inp < v else v
+
 
 @register("strip")
 @typed(T_STRING, T_STRING)
