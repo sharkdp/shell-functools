@@ -268,6 +268,7 @@ less_than i         :: Int    → Bool
 ```
 #### String operations ####
 ```
+reverse             :: String → String
 append suffix       :: String → String
 strip               :: String → String
 substr start end    :: String → String
@@ -294,6 +295,7 @@ at idx              :: Array  → String
 index idx           :: Array  → String
 join separator      :: Array  → String
 split separator     :: String → Array
+reverse             :: Array  → Array
 ```
 #### Other operations ####
 ```

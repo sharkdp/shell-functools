@@ -402,3 +402,25 @@ def format(format_str, inp):
         panic("Incorrect format string '{}' for input '{}'.".format(
             format_str.value, inp)
         )
+
+
+@register("reverse")
+@typed(None, None)
+def reverse(inp):
+    # slice arrays and string from start to finish in reversed order
+    if type(inp) == str or type(inp) == list:
+        return inp[::-1]
+
+    # treat integers as strings
+    elif type(inp) == int:
+        return str(inp)[::-1]
+
+    # booleans can not be reversed
+    elif type(inp) == bool:
+        panic("Cannot reverse bool value")
+
+    # we got something unexpected
+    else:
+        panic("Unexpected type '{}' for input '{}'."
+              .format(type(inp).__name__, inp)
+              )
