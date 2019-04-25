@@ -225,6 +225,7 @@ basename            :: Path   → Path
 is_dir              :: Path   → Bool
 is_file             :: Path   → Bool
 is_link             :: Path   → Bool
+is_executable       :: Path   → Bool
 exists              :: Path   → Bool
 has_ext ext         :: Path   → Bool
 strip_ext           :: Path   → String
