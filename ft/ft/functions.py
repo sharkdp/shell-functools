@@ -335,6 +335,12 @@ def is_link(inp):
     return os.path.islink(inp)
 
 
+@register("is_executable")
+@typed(T_PATH, T_BOOL)
+def is_executable(inp):
+    return os.path.isfile(inp) and os.access(inp, os.X_OK)
+
+
 @register("contains")
 @typed(T_STRING, T_BOOL)
 def contains(substring, inp):
