@@ -1,6 +1,7 @@
 import inspect
 import os
 import subprocess
+from sys import stderr
 
 from ft.types import T_STRING, T_ARRAY, T_BOOL, T_PATH, T_INT, T_VOID, TypeConversionError, \
     dynamic_cast
@@ -303,13 +304,19 @@ def duplicate(inp):
 @register("run")
 @typed(T_ARRAY, T_VOID)
 def run(command, inp):
-    command = dynamic_cast(T_STRING, command).value
+    command = dynamic_cast(T_STRING, command).value.split()
     args = map(T_STRING.create_from, inp)
     args = list(map(lambda v: v.value, args))
+    print("Running '{}' with arguments {}".format(command, args), file=stderr)
+    subprocess.call(command + args)
 
-    print("Running '{}' with arguments {}".format(command, args))
-    subprocess.call([command] + args)
-
+@register("runq")
+@typed(T_ARRAY, T_VOID)
+def runq(command, inp):
+    command = dynamic_cast(T_STRING, command).value.split()
+    args = map(T_STRING.create_from, inp)
+    args = list(map(lambda v: v.value, args))
+    subprocess.call(command + args)
 
 @register("exists")
 @typed(T_PATH, T_BOOL)
