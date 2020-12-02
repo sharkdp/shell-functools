@@ -2,8 +2,16 @@ import inspect
 import os
 import subprocess
 
-from ft.types import T_STRING, T_ARRAY, T_BOOL, T_PATH, T_INT, T_VOID, TypeConversionError, \
-    dynamic_cast
+from ft.types import (
+    T_STRING,
+    T_ARRAY,
+    T_BOOL,
+    T_PATH,
+    T_INT,
+    T_VOID,
+    TypeConversionError,
+    dynamic_cast,
+)
 from ft.internal import TypedValue, add_dynamic_type
 from ft.error import panic
 
@@ -32,8 +40,11 @@ def typed(type_in, type_out):
                 try:
                     inp = type_in.create_from(inp)
                 except TypeConversionError as e:
-                    panic("Incompatible input type: expected '{}', got '{}'".format(e.type_to,
-                                                                                    e.type_from))
+                    panic(
+                        "Incompatible input type: expected '{}', got '{}'".format(
+                            e.type_to, e.type_from
+                        )
+                    )
 
             if len(args) > 1:
                 result = fn(*args[0:-1], inp=inp.value)
@@ -54,6 +65,7 @@ def typed(type_in, type_out):
         return fn_typecheck
 
     return wrap
+
 
 @register("max")
 @typed(T_INT, T_INT)
@@ -91,14 +103,14 @@ def prepend(prefix, inp):
 @typed(T_STRING, T_STRING)
 def take(count, inp):
     count = dynamic_cast(T_INT, count).value
-    return inp[0:int(count)]
+    return inp[0 : int(count)]
 
 
 @register("drop")
 @typed(T_STRING, T_STRING)
 def drop(count, inp):
     count = dynamic_cast(T_INT, count).value
-    return inp[int(count):]
+    return inp[int(count) :]
 
 
 @register("capitalize")
@@ -405,8 +417,8 @@ def format(format_str, inp):
     try:
         return format_str.value.format(inp)
     except ValueError:
-        panic("Incorrect format string '{}' for input '{}'.".format(
-            format_str.value, inp)
+        panic(
+            "Incorrect format string '{}' for input '{}'.".format(format_str.value, inp)
         )
 
 
@@ -427,6 +439,4 @@ def reverse(inp):
 
     # we got something unexpected
     else:
-        panic("Unexpected type '{}' for input '{}'."
-              .format(type(inp).__name__, inp)
-              )
+        panic("Unexpected type '{}' for input '{}'.".format(type(inp).__name__, inp))

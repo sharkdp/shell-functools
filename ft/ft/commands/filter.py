@@ -12,9 +12,9 @@ class Filter(Command):
         self.negate_predicate = False
 
     def add_command_arguments(self, parser):
-        parser.add_argument('--negate', '-n',
-                            action='store_true',
-                            help='negate predicate')
+        parser.add_argument(
+            "--negate", "-n", action="store_true", help="negate predicate"
+        )
         return parser
 
     def parse_additional_command_arguments(self, args):
@@ -36,5 +36,8 @@ class Filter(Command):
                 if self.exit_when_false:
                     self.exit_early = True
         else:
-            panic("The function argument to '{}' needs to return a 'Bool', got '{}'"
-                  .format(self.name, result.fttype))
+            panic(
+                "The function argument to '{}' needs to return a 'Bool', got '{}'".format(
+                    self.name, result.fttype
+                )
+            )

@@ -26,10 +26,11 @@ class Command:
 
     def get_argument_parser(self):
         parser = argparse.ArgumentParser(description=self.name)
-        parser.add_argument('function', help='the function to run for each input')
-        parser.add_argument('args', help='optional arguments', nargs='*')
-        parser.add_argument('--column', '-c', type=int,
-                            help='apply function to a specific column')
+        parser.add_argument("function", help="the function to run for each input")
+        parser.add_argument("args", help="optional arguments", nargs="*")
+        parser.add_argument(
+            "--column", "-c", type=int, help="apply function to a specific column"
+        )
 
         parser = self.add_command_arguments(parser)
 
