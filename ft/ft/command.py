@@ -75,7 +75,7 @@ class Command:
     def print_formatted(self, result):
         if result.value is not None:
             formatted = ftformat(result)
-            print(formatted)
+            print(formatted, flush=True)
 
     def handle_input(self, value):
         raise NotImplementedError
