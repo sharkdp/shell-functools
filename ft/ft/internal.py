@@ -30,7 +30,7 @@ def ftformat(val):
 
 def try_convert_int(inp):
     # Make sure that the input *only* consists of a number (no added spaces..)
-    if not re.match("^[+-]?\d+$", inp):
+    if not re.match(r"^[+-]?\d+$", inp):
         return None
 
     try:
