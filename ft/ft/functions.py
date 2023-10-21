@@ -60,7 +60,7 @@ def typed(type_in, type_out):
 
         fn_typecheck.type_in = type_in
         fn_typecheck.type_out = type_out
-        fn_typecheck.inner_argspec = inspect.getargspec(fn)
+        fn_typecheck.inner_argspec = inspect.getfullargspec(fn)
 
         return fn_typecheck
 
