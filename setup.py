@@ -44,6 +44,9 @@ setup(
     include_package_data=True,
     install_requires=REQUIRES,
     python_requires=">=3.5",
+    extras_require={
+        'tests': ['pytest'],
+    },
     scripts=[
         "ft/filter",
         "ft/foldl",
