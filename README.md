@@ -1,6 +1,7 @@
 # shell-functools
 
 [![Unit tests](https://github.com/sharkdp/shell-functools/actions/workflows/ci.yml/badge.svg)](https://github.com/sharkdp/shell-functools/actions/workflows/ci.yml)
+
 *A collection of functional programming tools for the shell.*
 
 This project provides higher order functions like `map`, `filter`, `foldl`, `sort_by` and `take_while` as simple command-line tools.
