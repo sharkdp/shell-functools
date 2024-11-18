@@ -104,3 +104,7 @@ class Command:
                 break
 
         self.finalize()
+
+    @classmethod
+    def main(cls):
+        return cls().run()
