@@ -35,12 +35,6 @@ If you want to try it out on your own, run:
 pip install shell-functools
 ```
 
-If you only want to try it out temporarily, you can also use:
-``` bash
-git clone https://github.com/sharkdp/shell-functools /tmp/shell-functools
-export PATH="$PATH:/tmp/shell-functools/ft"
-```
-
 ## Documentation and examples
 
 ### Usage of `map`

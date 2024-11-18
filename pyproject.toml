@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "shell-functools"
+version = "0.3.1"
+description = "A collection of functional programming tools for the shell."
+authors = [{ name = "David Peter", email = "mail@david-peter.de" }]
+urls = { Home = "https://github.com/sharkdp/shell-functools" }
+keywords = ["shell", "functional-programming", "filesystem", "string-manipulation", "command-line"]
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+readme = { file = "README.md", content-type = "text/markdown" }
+license = "MIT"
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+tests = [
+    "pytest",
+]
+
+[project.scripts]
+filter = "ft.commands.filter:Filter.main"
+foldl = "ft.commands.foldl:Foldl.main"
+foldl1 = "ft.commands.foldl1:Foldl1.main"
+ft-functions = "ft.commands.ft_functions:main"
+map = "ft.commands.map:Map.main"
+sort_by = "ft.commands.sort_by:SortBy.main"
+take_while = "ft.commands.take_while:TakeWhile.main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ft/ft"]

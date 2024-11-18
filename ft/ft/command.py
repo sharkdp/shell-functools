@@ -1,6 +1,6 @@
 import sys
 import argparse
-from signal import signal, SIGPIPE, SIG_DFL
+import signal
 
 from functools import partial
 
@@ -22,7 +22,8 @@ class Command:
     @staticmethod
     def configure_broken_pipe():
         # Use the default behavior (exit quietly) when catching SIGPIPE
-        signal(SIGPIPE, SIG_DFL)
+        if hasattr(signal, 'SIGPIPE'):
+            signal.signal(signal.SIGPIPE, signal.SIG_DFL)
 
     def get_argument_parser(self):
         parser = argparse.ArgumentParser(description=self.name)
