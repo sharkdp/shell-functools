@@ -1,5 +1,0 @@
-#!/usr/bin/env python3
-
-from ft.commands.sort_by import SortBy
-
-SortBy().run()
