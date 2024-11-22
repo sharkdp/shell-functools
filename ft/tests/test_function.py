@@ -17,6 +17,6 @@ def test_min():
     assert cmd.output() == ["-5"]
 
 
-def test_max_column():
+def test_min_column():
     cmd = mock(Foldl1, ("min", [], ["a\t1", "b\t7", "c\t0", "d\t5"]), column=2)
     assert cmd.output() == ["0"]
