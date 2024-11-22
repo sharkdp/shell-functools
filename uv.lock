@@ -68,13 +68,15 @@ name = "shell-functools"
 version = "0.3.1"
 source = { editable = "." }
 
-[package.optional-dependencies]
-tests = [
+[package.dev-dependencies]
+dev = [
     { name = "pytest" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pytest", marker = "extra == 'tests'" }]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pytest", specifier = ">=8.3.3" }]
 
 [[package]]
 name = "tomli"
