@@ -363,9 +363,9 @@ def contains(substring, inp):
 @register("nonempty", "non_empty")
 @typed(None, T_BOOL)
 def nonempty(inp):
-    if type(inp) == list:
+    if type(inp) is list:
         return bool(inp)
-    elif type(inp) == str:
+    elif type(inp) is str:
         return inp.strip() != ""
 
     return True
@@ -426,15 +426,15 @@ def format(format_str, inp):
 @typed(None, None)
 def reverse(inp):
     # slice arrays and string from start to finish in reversed order
-    if type(inp) == str or type(inp) == list:
+    if type(inp) is str or type(inp) is list:
         return inp[::-1]
 
     # treat integers as strings
-    elif type(inp) == int:
+    elif type(inp) is int:
         return str(inp)[::-1]
 
     # booleans can not be reversed
-    elif type(inp) == bool:
+    elif type(inp) is bool:
         panic("Cannot reverse bool value")
 
     # we got something unexpected
